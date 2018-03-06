@@ -31,6 +31,10 @@ function dom(tag, attrs, ...children) {
 
     Object.assign(element, attrs)
 
+    if (attrs instanceof Object && attrs.ref && typeof attrs.ref === 'function') {
+      attrs.ref(element)
+    }
+
     return element
   }
 
