@@ -15,6 +15,9 @@ function Main() {
       <ol>
         {items.map(item => <li>{item}</li>)}
       </ol>
+      <button ref={node => { node.addEventListener('click', console.log) }}>
+        Click Me!
+      </button>
     </div>
   )
 }
