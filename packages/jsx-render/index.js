@@ -12,16 +12,19 @@ function dom(tag, attrs, ...children) {
     const element = document.createElement(tag)
 
     // one or multiple will be evaluated to append as string or HTMLElement
-    children.forEach(child => {
+    children.forEach(function handleAppends(child) {
       if (child instanceof HTMLElement) {
         fragments.appendChild(child)
-      } else if (typeof child === 'string'){
+      } else if (typeof child === 'string' || typeof child === 'number'){
         const textnode = document.createTextNode(child)
         fragments.appendChild(textnode)
+      } else if (child instanceof Array){
+        child.forEach(handleAppends)
       } else {
         // later other things could not be HTMLElement not strings
         console.log('not appendable', child);
       }
+
     })
 
     element.appendChild(fragments)
