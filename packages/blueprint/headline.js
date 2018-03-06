@@ -1,11 +1,14 @@
-import dom from 'jsx-render'
+import dom, { Fragment } from 'jsx-render'
 
 function Headline() {
   return (
-    <h1 className="headline">Hello this in an h1
-      <br />
-      new line
-    </h1>
+    <Fragment>
+      <h1 className="headline">Hello this in an h1
+        <br />
+        new line
+      </h1>
+      <h2>Second Headline</h2>
+    </Fragment>
   )
 }
 
