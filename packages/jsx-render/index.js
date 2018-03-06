@@ -1,7 +1,8 @@
 function dom(tag, attrs, ...children) {
   // Custom Components will be functions
   if (typeof tag === 'function') {
-    return tag()
+    const result = tag()
+    return result === 'FRAGMENT' ? children : result
   }
 
   // regular html components will be strings to create the elements
@@ -42,3 +43,4 @@ function dom(tag, attrs, ...children) {
 }
 
 export default dom
+export const Fragment = () => 'FRAGMENT'
