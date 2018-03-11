@@ -1,15 +1,7 @@
-function isSVG(element) {
-  const patt = new RegExp('^' + element + '$', 'i')
-  const SVGTags = ['path', 'svg', 'use', 'g']
-
-  return SVGTags.some(tag => patt.test(tag))
-}
-
-function styleString(styles) {
-  return Object.keys(styles)
-    .map(prop => `${prop}: ${styles[prop]}`)
-    .join(';')
-}
+import {
+  isSVG,
+  objectToStyleString,
+} from './utils'
 
 function dom(tag, attrs, ...children) {
   // Custom Components will be functions
@@ -47,7 +39,7 @@ function dom(tag, attrs, ...children) {
 
     for (const prop in attrs) {
       if (prop === 'style') {
-        element.style = styleString(attrs[prop])
+        element.style = objectToStyleString(attrs[prop])
       } else if (attrs.hasOwnProperty(prop)) {
         element.setAttribute(prop, attrs[prop])
       }
