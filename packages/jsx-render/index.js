@@ -1,7 +1,4 @@
-import {
-  isSVG,
-  objectToStyleString,
-} from './utils'
+import { isSVG, objectToStyleString } from './utils'
 
 function dom(tag, attrs, ...children) {
   // Custom Components will be functions
@@ -32,7 +29,6 @@ function dom(tag, attrs, ...children) {
         // later other things could not be HTMLElement nor strings
         console.log('not appendable', child);
       }
-
     })
 
     element.appendChild(fragments)
@@ -40,19 +36,17 @@ function dom(tag, attrs, ...children) {
     for (const prop in attrs) {
       if (prop === 'style') {
         element.style = objectToStyleString(attrs[prop])
+      } else if ( prop === 'ref' && typeof attrs.ref === 'function') {
+        attrs.ref(element)
       } else if (attrs.hasOwnProperty(prop)) {
         element.setAttribute(prop, attrs[prop])
       }
     }
 
-    if (attrs instanceof Object && attrs.ref && typeof attrs.ref === 'function') {
-      attrs.ref(element)
-    }
-
     return element
   }
 
-  throw new Error('Unknown type')
+  throw new Error(`jsx-render does not handle ${typeof tag}`)
 }
 
 export default dom
