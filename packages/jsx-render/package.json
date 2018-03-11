@@ -3,8 +3,16 @@
   "version": "0.1.2",
   "description": "",
   "main": "lib/index.js",
-  "keywords": [],
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alecsgone/jsx-files.git"
+  },
+  "keywords": ["JSX", "jsx-render", "SVG-JSX"],
+  "author": "Aleks",
+  "bugs": {
+    "url": "https://github.com/alecsgone/jsx-files/issues"
+  },
+  "homepage": "https://github.com/alecsgone/jsx-files#readme",
   "license": "MIT",
   "dependencies": {
     "@babel/cli": "^7.0.0-beta.40",
@@ -12,7 +20,7 @@
     "@babel/preset-env": "^7.0.0-beta.40"
   },
   "scripts": {
-    "dev": "babel index.js --out-dir lib --watch",
-    "build": "babel index.js --out-dir lib"
+    "dev": "babel index.js actionable.js utils.js --out-dir lib --watch",
+    "build": "babel index.js actionable.js utils.js --out-dir lib"
   }
 }
