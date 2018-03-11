@@ -1,12 +1,15 @@
 import dom from 'jsx-render'
 import Headline from './headline'
+import Logo from './logo'
+import Foo from './foo'
 
 const items = [1,2,3,4]
 function Main() {
   return (
     <div>
-      <Headline />
+      <Headline width="100px" bg="green" />
       <p>Lorem ipsum</p>
+      <Foo elem="Elementary" />
       <ul>
         <li><a href="">anchor</a></li>
         <li>2</li>
@@ -15,9 +18,7 @@ function Main() {
       <ol>
         {items.map(item => <li>{item}</li>)}
       </ol>
-      <button ref={node => { node.addEventListener('click', console.log) }}>
-        Click Me!
-      </button>
+      <Logo />
     </div>
   )
 }
