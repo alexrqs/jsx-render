@@ -5,6 +5,12 @@ function isSVG(element) {
   return SVGTags.some(tag => patt.test(tag))
 }
 
+function styleString(styles) {
+  return Object.keys(styles)
+    .map(prop => `${prop}: ${styles[prop]}`)
+    .join(';')
+}
+
 function dom(tag, attrs, ...children) {
   // Custom Components will be functions
   if (typeof tag === 'function') {
@@ -40,7 +46,9 @@ function dom(tag, attrs, ...children) {
     element.appendChild(fragments)
 
     for (const prop in attrs) {
-      if (attrs.hasOwnProperty(prop)) {
+      if (prop === 'style') {
+        element.style = styleString(attrs[prop])
+      } else if (attrs.hasOwnProperty(prop)) {
         element.setAttribute(prop, attrs[prop])
       }
     }
