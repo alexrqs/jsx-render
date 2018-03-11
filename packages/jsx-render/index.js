@@ -1,3 +1,10 @@
+function isSVG(element) {
+  const patt = new RegExp('^' + element + '$', 'i')
+  const SVGTags = ['path', 'svg', 'use', 'g']
+
+  return SVGTags.some(tag => patt.test(tag))
+}
+
 function dom(tag, attrs, ...children) {
   // Custom Components will be functions
   if (typeof tag === 'function') {
@@ -10,11 +17,13 @@ function dom(tag, attrs, ...children) {
   if (typeof tag === 'string') {
     // fragments will help later to append multiple children to the initial node
     const fragments = document.createDocumentFragment()
-    const element = document.createElement(tag)
+    const element = isSVG(tag)
+      ? document.createElementNS('http://www.w3.org/2000/svg', tag)
+      : document.createElement(tag)
 
     // one or multiple will be evaluated to append as string or HTMLElement
     children.forEach(function handleAppends(child) {
-      if (child instanceof HTMLElement) {
+      if (child instanceof HTMLElement || child instanceof SVGElement) {
         fragments.appendChild(child)
       } else if (typeof child === 'string' || typeof child === 'number'){
         const textnode = document.createTextNode(child)
@@ -22,7 +31,7 @@ function dom(tag, attrs, ...children) {
       } else if (child instanceof Array){
         child.forEach(handleAppends)
       } else {
-        // later other things could not be HTMLElement not strings
+        // later other things could not be HTMLElement nor strings
         console.log('not appendable', child);
       }
 
@@ -30,7 +39,11 @@ function dom(tag, attrs, ...children) {
 
     element.appendChild(fragments)
 
-    Object.assign(element, attrs)
+    for (const prop in attrs) {
+      if (attrs.hasOwnProperty(prop)) {
+        element.setAttribute(prop, attrs[prop])
+      }
+    }
 
     if (attrs instanceof Object && attrs.ref && typeof attrs.ref === 'function') {
       attrs.ref(element)
