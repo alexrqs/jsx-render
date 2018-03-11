@@ -3,7 +3,7 @@ import { isSVG, objectToStyleString } from './utils'
 function dom(tag, attrs, ...children) {
   // Custom Components will be functions
   if (typeof tag === 'function') {
-    const result = tag()
+    const result = tag(attrs)
     return result === 'FRAGMENT' ? children : result
   }
 
@@ -25,9 +25,11 @@ function dom(tag, attrs, ...children) {
         fragments.appendChild(textnode)
       } else if (child instanceof Array){
         child.forEach(handleAppends)
+      } else if (child === false) {
+        // expression evaluated as false e.g. {false && <Elem />}
       } else {
         // later other things could not be HTMLElement nor strings
-        console.log('not appendable', child);
+        console.log('not appendable', tag, attrs, children, child);
       }
     })
 
