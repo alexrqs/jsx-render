@@ -10,16 +10,22 @@ function updateElement(parent, next, prev) {
 function Actionable(elements, state, actions) {
   const actionSetWith = actions(setState)
   let parentNode
+  let nextProps
 
   function setState(stateModified) {
     const nextState = Object.assign({}, state, stateModified)
-    const nextNode = dom(() => elements(nextState, actionSetWith(nextState)))
+    const nextNode = dom(() => elements({
+      props: nextProps, state: nextState, actions: actionSetWith(nextState)
+    }))
     updateElement(parentNode, nextNode, parentNode.firstChild)
   }
 
-  return () => dom('span', {
-    ref: (node) => { parentNode = node }
-  }, elements(state, actionSetWith(state)))
+  return props => {
+    nextProps = props
+    return dom('span', { ref: (node) => { parentNode = node } },
+      elements({ props, state, actions: actionSetWith(state) })
+    )
+  }
 }
 
 export default Actionable
