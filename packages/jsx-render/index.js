@@ -3,7 +3,7 @@ import { isSVG, objectToStyleString } from './utils'
 function dom(tag, attrs, ...children) {
   // Custom Components will be functions
   if (typeof tag === 'function') {
-    const result = tag(attrs)
+    const result = tag(Object.assign({}, attrs, { children }))
     return result === 'FRAGMENT' ? children : result
   }
 
