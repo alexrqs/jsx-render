@@ -7,23 +7,18 @@ function updateElement(parent, next, prev) {
   }
 }
 
-function Actionable(elements, state, actions) {
-  const actionSetWith = actions(setState)
+function Actionable(elements, store) {
   let parentNode
   let nextProps
-
-  function setState(stateModified) {
-    const nextState = Object.assign({}, state, stateModified)
-    const nextNode = dom(() => elements({
-      props: nextProps, state: nextState, actions: actionSetWith(nextState)
-    }))
+  const unsubscribe = store.subscribe(function() {
+    const nextNode = dom(() => elements(nextProps))
     updateElement(parentNode, nextNode, parentNode.firstChild)
-  }
+  })
 
   return props => {
     nextProps = props
     return dom('span', { ref: (node) => { parentNode = node } },
-      elements({ props, state, actions: actionSetWith(state) })
+      elements(props)
     )
   }
 }
