@@ -2,7 +2,7 @@
   "name": "jsx-render",
   "version": "0.1.4",
   "description": "",
-  "main": "lib/index.js",
+  "main": "lib/dom.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/alecsgone/jsx-files.git"
@@ -19,12 +19,26 @@
   "homepage": "https://github.com/alecsgone/jsx-files#readme",
   "license": "MIT",
   "dependencies": {
-    "@babel/cli": "^7.0.0-beta.40",
-    "@babel/core": "^7.0.0-beta.40",
-    "@babel/preset-env": "^7.0.0-beta.40"
   },
   "scripts": {
-    "dev": "babel index.js actionable.js utils.js --out-dir lib --watch",
-    "build": "babel index.js actionable.js utils.js --out-dir lib"
+    "dev": "babel src --out-dir lib --watch",
+    "build": "babel src --out-dir lib",
+    "test": "ava --verbose"
+  },
+  "ava": {
+    "require": [
+      "@babel/register",
+      "./test/helpers/setup-browser-env.js"
+    ]
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0-beta.42",
+    "@babel/core": "^7.0.0-beta.42",
+    "@babel/plugin-syntax-jsx": "^7.0.0-beta.42",
+    "@babel/plugin-transform-react-jsx": "^7.0.0-beta.42",
+    "@babel/preset-env": "^7.0.0-beta.42",
+    "@babel/register": "^7.0.0-beta.42",
+    "ava": "next",
+    "browser-env": "^3.2.5"
   }
 }
