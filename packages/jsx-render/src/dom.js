@@ -29,7 +29,7 @@ function dom(tag, attrs, ...children) {
         // expression evaluated as false e.g. {false && <Elem />}
       } else {
         // later other things could not be HTMLElement nor strings
-        console.log('not appendable', tag, attrs, children, child);
+        console.log('Not Appendable', tag, attrs, children, child);
       }
     })
 
@@ -40,6 +40,8 @@ function dom(tag, attrs, ...children) {
         element.style = objectToStyleString(attrs[prop])
       } else if ( prop === 'ref' && typeof attrs.ref === 'function') {
         attrs.ref(element)
+      } else if (prop === 'className') {
+        element.setAttribute('class', attrs[prop])
       } else if (attrs.hasOwnProperty(prop)) {
         element.setAttribute(prop, attrs[prop])
       }
