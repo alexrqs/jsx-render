@@ -1,6 +1,6 @@
 {
   "name": "jsx-render",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "",
   "main": "lib/dom.js",
   "repository": {
@@ -18,8 +18,6 @@
   },
   "homepage": "https://github.com/alecsgone/jsx-files#readme",
   "license": "MIT",
-  "dependencies": {
-  },
   "scripts": {
     "dev": "babel src --out-dir lib --watch",
     "build": "babel src --out-dir lib",
