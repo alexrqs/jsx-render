@@ -140,6 +140,6 @@ test('Component Children', t => {
     return <div><Comp><a href="http://url.io">io</a></Comp></div>
   }
 
-  t.is(render().outerHTML, '<div><span<a href="http://url.io">io</a></span></div>',
+  t.is(render().outerHTML, '<div><span><a href="http://url.io">io</a></span></div>',
     'Props Renders Correctly')
 })
