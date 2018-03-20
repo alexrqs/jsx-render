@@ -1,6 +1,7 @@
 ## JSX-render
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lernajs.io/)
 [![travis](https://travis-ci.org/alecsgone/jsx-files.svg?branch=master)](https://travis-ci.org/alecsgone/jsx-files)
+
 Small file to render jsx as a stateless component from react but without the heavy kb use of it.
 
 ### How To
@@ -41,4 +42,47 @@ const Modal = props => (
     </Fragment>
   </div>
 )
+```
+
+### Actions and "state" with redux
+
+The redux-ish approach is an experiment and might change later do not get too attached.
+```jsx
+// store.js
+import { createStore } from 'redux'
+
+function counter(state = 0, action) {
+  if (action.type === 'ADD') {
+    return state + 1
+  }
+  return state
+}
+
+const store = createStore(counter)
+export default store
+```
+```jsx
+import dom from 'jsx-render'
+import { withState } from 'jsx-render/lib/reduxish'
+import store from './store'
+
+const actions = {
+  increment: el => el.addEventListener('click', () => store.dispatch({ type: 'ADD' })),
+}
+
+function Headline(props) {
+  const state = store.getState()
+  return (
+    <div>
+      <span>
+        <h1>counter {state}</h1>
+      </span>
+      <button style={{ background: props.bg }} ref={actions.increment}>
+        Increase ++!
+      </button>
+    </div>
+  )
+}
+
+export default withState(Headline, store)
 ```
