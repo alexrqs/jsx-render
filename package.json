@@ -1,5 +1,42 @@
 {
-	"devDependencies": {
-		"lerna": "^2.5.1"
-	}
+  "name": "jsx-render",
+  "version": "0.2.0",
+  "description": "",
+  "main": "lib/dom.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alecsgone/jsx-render.git"
+  },
+  "keywords": [
+    "JSX",
+    "jsx-render",
+    "SVG-JSX"
+  ],
+  "author": "Aleks",
+  "bugs": {
+    "url": "https://github.com/alecsgone/jsx-render/issues"
+  },
+  "homepage": "https://github.com/alecsgone/jsx-render#readme",
+  "license": "MIT",
+  "scripts": {
+    "dev": "babel src --out-dir lib --watch",
+    "build": "babel src --out-dir lib",
+    "test": "ava --verbose"
+  },
+  "ava": {
+    "require": [
+      "@babel/register",
+      "./test/helpers/setup-browser-env.js"
+    ]
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0-beta.42",
+    "@babel/core": "^7.0.0-beta.42",
+    "@babel/plugin-syntax-jsx": "^7.0.0-beta.42",
+    "@babel/plugin-transform-react-jsx": "^7.0.0-beta.42",
+    "@babel/preset-env": "^7.0.0-beta.42",
+    "@babel/register": "^7.0.0-beta.42",
+    "ava": "next",
+    "browser-env": "^3.2.5"
+  }
 }

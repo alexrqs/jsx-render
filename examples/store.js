@@ -11,5 +11,13 @@ function counter(state = 0, action) {
   }
 }
 
-const store = createStore(counter)
+const rootReducer = combineReducers({
+  counter,
+})
+
+const store = createStore(rootReducer, {
+  counter: 0,
+  changos: true,
+})
+
 export default store
