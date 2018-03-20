@@ -4,31 +4,19 @@
 Small file to render jsx as a stateless component from react but without the heavy kb use of it.
 
 ### Features
-✔ Render Basic Single Components `<div />`
-
-✔ Conditional Component `{condition ? <foo/> : <bar/>}`
-
-✔ Component with Data Attributes `<div data-some="attr">`
-
-✔ Component with Attributes `<img src="foo.jpg">`
-
-✔ Nested Component ul>li>a
-
-✔ Siblings Components ul>li*3
-
-✔ Components with classname p.chan
-
-✔ Map components & numbers `array.map(item => <div>{item}</div>)`
-
-✔ Fragments
-
-✔ SVG
-
-✔ Component Props `<Custom foo="foo">`
-
-✔ Component Children `<Custom>children</Custom>`
-
-✔ Components withState `Redux` not included
+- Render Basic Single Components `<div />`
+- Conditional Component `{condition ? <foo/> : <bar/>}`
+- Component with Data Attributes `<div data-some="attr">`
+- Component with Attributes `<img src="foo.jpg">`
+- Nested Component ul>li>a
+- Siblings Components ul>li*3
+- Components with classname p.chan
+- Map components & numbers `array.map(item => <div>{item}</div>)`
+- Fragments
+- SVG
+- Component Props `<Custom foo="foo">`
+- Component Children `<Custom>children</Custom>`
+- Components withState `Redux` not included
 
 ### How To
 The required packages are `@babel/plugin-syntax-jsx`, `@babel/plugin-transform-react-jsx` and of course `jsx-render`, additionally you will need babel-cli, webpack or any other way to transpile the code that you prefer.
