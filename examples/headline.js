@@ -1,5 +1,5 @@
 import dom, { Fragment } from 'jsx-render'
-import Reduxable from 'jsx-render/lib/reduxable'
+import { withState } from 'jsx-render/lib/reduxish'
 import store from './store'
 
 const actions = {
@@ -14,10 +14,9 @@ function Headline(props) {
     <div>
       <span>
         <h1>{state.counter}</h1>
-        {state.counter === 4 && <h2>hola</h2>}
       </span>
       <button ref={actions.increment}>
-        Increase ++!
+        Increase ++{state.counter === 4 ? ' Why so serious!' : '!'}
       </button>
       <button style={{ background: props.bg }} ref={actions.equality}>
         Click Me! {props.width}
@@ -29,4 +28,4 @@ function Headline(props) {
   )
 }
 
-export default Reduxable(Headline, store)
+export default withState(Headline, store)

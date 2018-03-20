@@ -13,6 +13,7 @@ function counter(state = 0, action) {
 
 const rootReducer = combineReducers({
   counter,
+  changos(state = false) { return state },
 })
 
 const store = createStore(rootReducer, {
