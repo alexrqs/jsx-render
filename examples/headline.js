@@ -6,6 +6,13 @@ const actions = {
   increment: el => el.addEventListener('click', () => store.dispatch({ type: 'INC' })),
   equality: el => el.addEventListener('click', () => console.log('bla', store.getState())),
   decrement: el => el.addEventListener('click', () => store.dispatch({ type: 'DEC' })),
+  fetch: el => el.addEventListener('click', () => {
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then(res => res.json())
+      .then(json => {
+        store.dispatch({ type: 'USER', payload: json })
+      })
+  }),
 }
 
 function Headline(props) {
@@ -22,8 +29,16 @@ function Headline(props) {
         Click Me! {props.width}
       </button>
       <button ref={actions.decrement}>
-        Increase --!
+        Dec --!
       </button>
+      <button ref={actions.fetch}>
+        getUser
+      </button>
+      <div>
+        {state.user && (
+          Object.keys(state.user).map(item => <li>{state.user[item]}</li>)
+        )}
+      </div>
     </div>
   )
 }
