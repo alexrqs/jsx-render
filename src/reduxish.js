@@ -1,4 +1,4 @@
-import dom, { Fragment } from './index'
+import dom, { Fragment } from './dom'
 
 function updateElement(parent, next, prev) {
   // later virtualDOM mods
@@ -7,7 +7,7 @@ function updateElement(parent, next, prev) {
   }
 }
 
-function Actionable(elements, store) {
+export function withState(elements, store) {
   let parentNode
   let nextProps
   const unsubscribe = store.subscribe(function() {
@@ -22,5 +22,3 @@ function Actionable(elements, store) {
     )
   }
 }
-
-export default Actionable
