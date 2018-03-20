@@ -1,5 +1,4 @@
 ## JSX-render
-[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lernajs.io/)
 [![travis](https://travis-ci.org/alecsgone/jsx-files.svg?branch=master)](https://travis-ci.org/alecsgone/jsx-files)
 
 Small file to render jsx as a stateless component from react but without the heavy kb use of it.
@@ -18,7 +17,7 @@ Small file to render jsx as a stateless component from react but without the hea
 ✔ Component Props `<Custom foo="foo">`
 ✔ Component Children `<Custom>children</Custom>`
 ✔ Components withState `Redux` not included
- 
+
 ### How To
 The required packages are `@babel/plugin-syntax-jsx`, `@babel/plugin-transform-react-jsx` and of course `jsx-render`, additionally you will need babel-cli, webpack or any other way to transpile the code that you prefer.
 
