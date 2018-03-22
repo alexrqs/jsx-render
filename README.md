@@ -1,5 +1,5 @@
 ## JSX-render
-[![travis](https://travis-ci.org/alecsgone/jsx-files.svg?branch=master)](https://travis-ci.org/alecsgone/jsx-files)
+[![travis](https://travis-ci.org/alecsgone/jsx-render.svg?branch=master)](https://travis-ci.org/alecsgone/jsx-render)
 
 Small file to render jsx as a stateless component from react but without the heavy kb use of it.
 
