@@ -16,6 +16,8 @@ Small file to render jsx as a stateless component from react but without the hea
 - SVG
 - Component Props `<Custom foo="foo">`
 - Component Children `<Custom>children</Custom>`
+- Component render xlinkHref for SVG sprites
+
 - Components withState `Redux` not included
 
 ### How To

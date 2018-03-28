@@ -143,3 +143,16 @@ test('Component Children', t => {
   t.is(render().outerHTML, '<div><span><a href="http://url.io">io</a></span></div>',
     'Props Renders Correctly')
 })
+
+test('Component render xlinkHref for SVG sprites', t => {
+  function renderDataAttrs() {
+    return (
+      <svg>
+        <use xlinkHref="#star-open" />
+      </svg>
+    )
+  }
+
+  t.is(renderDataAttrs().outerHTML, '<svg><use xlink:href="#star-open"></use></svg>',
+    'SVG sprites Renders Correctly')
+})

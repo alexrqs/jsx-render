@@ -42,6 +42,8 @@ function dom(tag, attrs, ...children) {
         attrs.ref(element)
       } else if (prop === 'className') {
         element.setAttribute('class', attrs[prop])
+      } else if (prop === 'xlinkHref') {
+        element.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', attrs[prop])
       } else if (attrs.hasOwnProperty(prop)) {
         element.setAttribute(prop, attrs[prop])
       }
