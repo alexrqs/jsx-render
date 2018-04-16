@@ -132,6 +132,22 @@ test('Component Props', t => {
     'Props Renders Correctly')
 })
 
+test('Component has defaultProps', t => {
+  function Comp(props) {
+    return <span>{props.num}</span>
+  }
+
+  Comp.defaultProps = {
+    num: 2,
+  }
+  function render () {
+    return <div><Comp /></div>
+  }
+
+  t.is(render().outerHTML, '<div><span>2</span></div>',
+    'Props Renders Correctly')
+})
+
 test('Component Children', t => {
   function Comp(props) {
     return <span>{props.children}</span>
@@ -156,3 +172,4 @@ test('Component render xlinkHref for SVG sprites', t => {
   t.is(renderDataAttrs().outerHTML, '<svg><use xlink:href="#star-open"></use></svg>',
     'SVG sprites Renders Correctly')
 })
+
