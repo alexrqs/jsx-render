@@ -21,6 +21,7 @@
   "scripts": {
     "dev": "babel src --out-dir lib --watch",
     "build": "babel src --out-dir lib",
+    "prepublish": "npm run build",
     "test": "ava --verbose"
   },
   "ava": {
