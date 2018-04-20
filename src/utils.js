@@ -16,9 +16,17 @@ export function createFragmentFrom(children) {
   const fragment = document.createDocumentFragment()
 
   function processDOMNodes(child) {
-    if (child instanceof HTMLElement || child instanceof SVGElement || child instanceof Comment) {
+    if (
+      child instanceof HTMLElement ||
+      child instanceof SVGElement ||
+      child instanceof Comment ||
+      child instanceof DocumentFragment
+    ) {
       fragment.appendChild(child)
-    } else if (typeof child === 'string' || typeof child === 'number'){
+    } else if (
+      typeof child === 'string' ||
+      typeof child === 'number'
+    ){
       const textnode = document.createTextNode(child)
       fragment.appendChild(textnode)
     } else if (child instanceof Array){

@@ -93,6 +93,23 @@ test('Fragments', t => {
 
   t.is(base.innerHTML, '<li>uno</li><li>uno</li>',
     'Fragments Renders Correctly')
+
+  function renderInContext() {
+    return (
+      <ul>
+        <Fragment>
+          <li>uno</li>
+          <li>uno</li>
+        </Fragment>
+      </ul>
+    )
+  }
+
+  const base2 = document.createElement('div')
+  base2.appendChild(renderInContext())
+
+  t.is(base2.innerHTML, '<ul><li>uno</li><li>uno</li></ul>',
+    'Fragments Renders Correctly in context')
 })
 
 test('Portals', t => {
