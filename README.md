@@ -34,7 +34,7 @@ function Component(node) {
   return (
     <div>
       <Portal>
-        <span>uno</li>
+        <span>uno</span>
       </Portal>
     </div>
   )
