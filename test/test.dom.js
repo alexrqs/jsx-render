@@ -80,7 +80,6 @@ test('Map components & numbers', t => {
 
 test('Fragments', t => {
   function render() {
-    const arr = [1,2,3]
     return (
       <Fragment>
         <li>uno</li>
@@ -89,13 +88,15 @@ test('Fragments', t => {
     )
   }
 
-  t.is(render().map(el => el.outerHTML).join(""), '<li>uno</li><li>uno</li>',
+  const base = document.createElement('ul')
+  base.appendChild(render())
+
+  t.is(base.innerHTML, '<li>uno</li><li>uno</li>',
     'Fragments Renders Correctly')
 })
 
 test('SVG', t => {
   function render() {
-    const arr = [1,2,3]
     return (
       <svg
         id="Layer_1"
@@ -140,6 +141,7 @@ test('Component has defaultProps', t => {
   Comp.defaultProps = {
     num: 2,
   }
+
   function render () {
     return <div><Comp /></div>
   }
@@ -172,4 +174,3 @@ test('Component render xlinkHref for SVG sprites', t => {
   t.is(renderDataAttrs().outerHTML, '<svg><use xlink:href="#star-open"></use></svg>',
     'SVG sprites Renders Correctly')
 })
-
