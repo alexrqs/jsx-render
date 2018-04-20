@@ -12,7 +12,34 @@ Small file to render jsx as a stateless component from react but without the hea
 - Siblings Components ul>li*3
 - Components with classname p.chan
 - Map components & numbers `array.map(item => <div>{item}</div>)`
-- Fragments
+- Fragments:
+```jsx
+import dom, { Fragments } from 'jsx-render'
+
+// Return siblings without direct parent component
+const Foo = () => (<Fragments><li></li><li></li></Fragments>)
+const ul = document.createElement('ul')
+ul.appendChild(<Foo />)
+```
+- Portals:
+```jsx
+import dom, { portalCreator } from 'jsx-render'
+
+// can render the component on a diferent node than the parentNode
+// useful for modals, and if the argument is not a node
+// it will render as body direct son by default
+function Component(node) {
+  const Portal = portalCreator(node)
+
+  return (
+    <div>
+      <Portal>
+        <span>uno</li>
+      </Portal>
+    </div>
+  )
+}
+```
 - SVG
 - Component Props `<Custom foo="foo">`
 - Component Children `<Custom>children</Custom>`

@@ -1,5 +1,5 @@
 import test from 'ava'
-import dom, { Fragment } from '../src/dom'
+import dom, { Fragment, portalCreator } from '../src/dom'
 
 test('Basic Single Component <div />', t => {
   function render() { return <div /> }
@@ -93,6 +93,33 @@ test('Fragments', t => {
 
   t.is(base.innerHTML, '<li>uno</li><li>uno</li>',
     'Fragments Renders Correctly')
+})
+
+test('Portals', t => {
+  function render(node) {
+    const Portal = portalCreator(node)
+
+    return (
+      <ul>
+        <Portal>
+          <li>uno</li>
+          <li>uno</li>
+        </Portal>
+      </ul>
+    )
+  }
+
+  const base = document.createElement('h2')
+  render(base)
+
+  t.is(base.innerHTML, '<li>uno</li><li>uno</li>',
+    'Portals Renders Outside Correctly')
+
+  t.is(render().outerHTML, '<ul><!--Portal Used--></ul>',
+    'Portals renders inside another element')
+
+  t.is(document.body.outerHTML, '<body><li>uno</li><li>uno</li></body>',
+    'Portals renders inside the Body tag by default')
 })
 
 test('SVG', t => {

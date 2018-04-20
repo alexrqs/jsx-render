@@ -4,13 +4,21 @@ function dom(tag, attrs, ...children) {
   // Custom Components will be functions
   if (typeof tag === 'function') {
     tag.defaultProps = tag.defaultProps || {}
-
     const result = tag(Object.assign({}, tag.defaultProps, attrs, { children }))
-    const completeTag = result === 'FRAGMENT'
-      ? createFragmentFrom(children)
-      : result
 
-    return completeTag
+    switch (result) {
+      case 'FRAGMENT':
+        return createFragmentFrom(children)
+
+      // Portals are useful to render modals
+      // allow render on a different element than the parent of the chain
+      // and leave a comment instead
+      case 'PORTAL':
+        tag.target.appendChild(createFragmentFrom(children))
+        return document.createComment("Portal Used")
+      default:
+        return result
+    }
   }
 
   // regular html components will be strings to create the elements
@@ -46,3 +54,16 @@ function dom(tag, attrs, ...children) {
 
 export default dom
 export const Fragment = () => 'FRAGMENT'
+export const portalCreator = node => {
+  function Portal () {
+    return 'PORTAL'
+  }
+
+  Portal.target = document.body
+
+  if (node && node.nodeType === Node.ELEMENT_NODE) {
+    Portal.target = node
+  }
+
+  return Portal
+}

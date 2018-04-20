@@ -16,7 +16,7 @@ export function createFragmentFrom(children) {
   const fragment = document.createDocumentFragment()
 
   function processDOMNodes(child) {
-    if (child instanceof HTMLElement || child instanceof SVGElement) {
+    if (child instanceof HTMLElement || child instanceof SVGElement || child instanceof Comment) {
       fragment.appendChild(child)
     } else if (typeof child === 'string' || typeof child === 'number'){
       const textnode = document.createTextNode(child)
