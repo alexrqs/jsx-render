@@ -1,0 +1,21 @@
+{
+    "accessKey": "accesskey",
+    "className": "class",
+    "contentEditable": "contenteditable",
+    "contextMenu": "contextmenu",
+    "dir": "dir",
+    "draggable": "draggable",
+    "dropZone": "dropzone",
+    "hidden": "hidden",
+    "id": "id",
+    "itemId": "itemid",
+    "itemProp": "itemprop",
+    "itemRef": "itemref",
+    "itemScope": "itemscope",
+    "itemType": "itemtype",
+    "lang": "lang",
+    "spellCheck": "spellcheck",
+    "tabIndex": "tabindex",
+    "title": "title",
+    "translate": "translate"
+}

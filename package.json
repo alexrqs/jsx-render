@@ -20,7 +20,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "babel src --out-dir lib --watch",
-    "build": "babel src --out-dir lib",
+    "build": "babel src --out-dir lib --copy-files",
     "prepublish": "npm run build",
     "test": "ava --verbose"
   },
