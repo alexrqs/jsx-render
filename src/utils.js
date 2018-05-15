@@ -35,7 +35,9 @@ export function createFragmentFrom(children) {
       // expression evaluated as false e.g. {false && <Elem />}
     } else {
       // later other things could not be HTMLElement nor strings
-      console.log('Not Appendable', child);
+      if (process.env.NODE_ENV === 'development') {
+        console.log('Not Appendable', child);
+      }
     }
   }
 

@@ -1,10 +1,14 @@
 import { isSVG, objectToStyleString, createFragmentFrom } from './utils'
+import HTML_TAGS from './HTML_TAGS.json'
+import GLOBAL_ATTRIBUTES from './GLOBAL_ATTRIBUTES.json'
+import EVENT_HANDLERS from './EVENT_HANDLERS.json'
 
-function dom(tag, attrs, ...children) {
+
+function dom(tagName, attrs, ...children) {
   // Custom Components will be functions
-  if (typeof tag === 'function') {
-    tag.defaultProps = tag.defaultProps || {}
-    const result = tag(Object.assign({}, tag.defaultProps, attrs, { children }))
+  if (typeof tagName === 'function') {
+    tagName.defaultProps = tagName.defaultProps || {}
+    const result = tagName(Object.assign({}, tagName.defaultProps, attrs, { children }))
 
     switch (result) {
       case 'FRAGMENT':
@@ -14,7 +18,7 @@ function dom(tag, attrs, ...children) {
       // allow render on a different element than the parent of the chain
       // and leave a comment instead
       case 'PORTAL':
-        tag.target.appendChild(createFragmentFrom(children))
+        tagName.target.appendChild(createFragmentFrom(children))
         return document.createComment("Portal Used")
       default:
         return result
@@ -23,33 +27,39 @@ function dom(tag, attrs, ...children) {
 
   // regular html components will be strings to create the elements
   // this is handled by the babel plugins
-  if (typeof tag === 'string') {
-    const element = isSVG(tag)
-      ? document.createElementNS('http://www.w3.org/2000/svg', tag)
-      : document.createElement(tag)
+  if (typeof tagName === 'string') {
+    const tag = HTML_TAGS[tagName] || tagName
+    const object = typeof tag === 'object'
+    const localAttrs = object ? tag.attributes || {} : {}
+    const props = Object.assign({}, GLOBAL_ATTRIBUTES, localAttrs)
+    const tagType = object ? tag.name : tag
+    const element = isSVG(tagName)
+      ? document.createElementNS('http://www.w3.org/2000/svg', tagName)
+      : document.createElement(tagType)
 
     // one or multiple will be evaluated to append as string or HTMLElement
     const fragment = createFragmentFrom(children)
     element.appendChild(fragment)
 
-    for (const prop in attrs) {
-      if (prop === 'style') {
-        element.style = objectToStyleString(attrs[prop])
-      } else if ( prop === 'ref' && typeof attrs.ref === 'function') {
+    for (const attr in attrs) {
+      if (attr === 'style') {
+        element.style = objectToStyleString(attrs[attr])
+      } else if ( attr === 'ref' && typeof attrs.ref === 'function') {
         attrs.ref(element)
-      } else if (prop === 'className') {
-        element.setAttribute('class', attrs[prop])
-      } else if (prop === 'xlinkHref') {
-        element.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', attrs[prop])
-      } else if (attrs.hasOwnProperty(prop)) {
-        element.setAttribute(prop, attrs[prop])
+      } else if (attr in EVENT_HANDLERS) {
+        element.addEventListener(EVENT_HANDLERS[attr], attrs[attr])
+      } else if (attr === 'xlinkHref') {
+        element.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', attrs[attr])
+      } else if (attrs.hasOwnProperty(attr)) {
+        const propName = props[attr] || attr;
+        element.setAttribute(propName, attrs[attr])
       }
     }
 
     return element
   }
 
-  throw new Error(`jsx-render does not handle ${typeof tag}`)
+  throw new Error(`jsx-render does not handle ${typeof tagName}`)
 }
 
 export default dom

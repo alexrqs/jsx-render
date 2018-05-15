@@ -218,3 +218,27 @@ test('Component render xlinkHref for SVG sprites', t => {
   t.is(renderDataAttrs().outerHTML, '<svg><use xlink:href="#star-open"></use></svg>',
     'SVG sprites Renders Correctly')
 })
+
+test('Component with click', t => {
+  function renderButtonClick() {
+    return (
+      <button onClick={() => {}}>
+        Click me!
+      </button>
+    )
+  }
+
+  t.is(renderButtonClick().outerHTML, '<button>Click me!</button>',
+    'onClick Renders Correctly')
+})
+
+test('Component render audio tag with good attributes', t => {
+  function renderAudioTag() {
+    return (
+      <audio autoPlay autoBuffer src="foo.mp3" />
+    )
+  }
+
+  t.is(renderAudioTag().outerHTML, '<audio autoplay="true" autobuffer="true" src="foo.mp3"></audio>',
+  'audio tag renders correctly')
+})
