@@ -34,7 +34,7 @@ function dom(tag, attrs, ...children) {
 
     for (const prop in attrs) {
       if (prop === 'style') {
-        element.style = objectToStyleString(attrs[prop])
+        element.style.cssText = objectToStyleString(attrs[prop])
       } else if ( prop === 'ref' && typeof attrs.ref === 'function') {
         attrs.ref(element)
       } else if (prop === 'className') {
