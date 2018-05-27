@@ -20,7 +20,7 @@ module.exports = {
       loader: 'babel-loader',
       exclude: /node_modules/,
       options: {
-        extends: path.resolve(__dirname, '.babelrc'),
+        extends: path.resolve(__dirname, '../.babelrc'),
       },
     }]
   },
