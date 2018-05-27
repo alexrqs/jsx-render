@@ -2,4 +2,3 @@ node_modules
 lib
 public
 yarn-error.log
-package-lock.json
