@@ -19,6 +19,7 @@
   "homepage": "https://github.com/alecsgone/jsx-render#readme",
   "license": "MIT",
   "scripts": {
+    "start": "webpack-dev-server --config examples/webpack.config.js --hot",
     "dev": "babel src --out-dir lib --watch",
     "build": "babel src --out-dir lib",
     "prepublish": "npm run build",
@@ -32,12 +33,18 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.42",
-    "@babel/core": "^7.0.0-beta.42",
-    "@babel/plugin-syntax-jsx": "^7.0.0-beta.42",
-    "@babel/plugin-transform-react-jsx": "^7.0.0-beta.42",
-    "@babel/preset-env": "^7.0.0-beta.42",
+    "@babel/core": "^7.0.0-beta.49",
+    "@babel/plugin-syntax-jsx": "^7.0.0-beta.49",
+    "@babel/plugin-transform-react-jsx": "^7.0.0-beta.49",
+    "@babel/preset-env": "^7.0.0-beta.49",
     "@babel/register": "^7.0.0-beta.42",
     "ava": "next",
-    "browser-env": "^3.2.5"
+    "babel-loader": "^8.0.0-beta.3",
+    "browser-env": "^3.2.5",
+    "html-webpack-plugin": "^3.2.0",
+    "redux": "^4.0.0",
+    "webpack": "^4.9.1",
+    "webpack-cli": "^2.1.4",
+    "webpack-dev-server": "^3.1.4"
   }
 }

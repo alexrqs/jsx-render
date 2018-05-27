@@ -1,4 +1,4 @@
-import dom from 'jsx-render'
+import dom from '../src/dom'
 
 const Logo = () => (
   <svg

@@ -1,4 +1,4 @@
-import dom, { Fragment } from 'jsx-render'
+import dom, { Fragment } from '../src/dom';
 
 function Foo(props) {
   return (

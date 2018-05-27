@@ -1,5 +1,5 @@
 import App from './app'
 
 // client side rendering
-const app = document.querySelector('.app')
+const app = document.body
 app.appendChild(App())

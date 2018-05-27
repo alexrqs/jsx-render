@@ -1,22 +1,38 @@
 const path = require('path');
+const HTMLPage = require('html-webpack-plugin')
 
+console.log(process.cwd())
 module.exports = {
+  devServer: {
+    open: true,
+    port: 3030,
+  },
+
   devtool: 'cheap-source-code',
   entry: {
-    main: path.resolve('./index.js'),
-    // server: path.resolve('./server.js'),
+    main: path.resolve(__dirname, './index.js'),
   },
+
   mode: 'development',
+
   module: {
     rules: [{
       test: /\.jsx?$/,
-      use: 'babel-loader',
+      loader: 'babel-loader',
       exclude: /node_modules/,
+      options: {
+        extends: path.resolve(__dirname, '.babelrc'),
+      },
     }]
   },
+
   output: {
-    path: path.resolve('public'),
+    path: path.resolve(''),
     filename: '[name].js',
   },
-  target: 'node',
+
+  plugins: [
+    new HTMLPage(),
+  ],
+
 }

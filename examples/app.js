@@ -1,4 +1,4 @@
-import dom from 'jsx-render'
+import dom from '../src/dom'
 import Headline from './headline'
 import Logo from './logo'
 import Foo from './foo'

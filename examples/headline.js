@@ -1,5 +1,5 @@
-import dom, { Fragment } from 'jsx-render'
-import { withState } from 'jsx-render/lib/reduxish'
+import dom, { Fragment } from '../src/dom'
+import { withState } from '../src/reduxish'
 import store from './store'
 
 const actions = {
