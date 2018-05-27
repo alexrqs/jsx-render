@@ -31,11 +31,14 @@ export function createFragmentFrom(children) {
       fragment.appendChild(textnode)
     } else if (child instanceof Array){
       child.forEach(processDOMNodes)
-    } else if (child === false) {
+    } else if (child === false || child === null) {
       // expression evaluated as false e.g. {false && <Elem />}
+      // expression evaluated as false e.g. {null && <Elem />}
     } else {
       // later other things could not be HTMLElement nor strings
-      console.log('Not Appendable', child);
+      if (process.env.NODE_ENV) {
+        console.log(child, 'is not appendable');
+      }
     }
   }
 

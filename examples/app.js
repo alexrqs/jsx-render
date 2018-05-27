@@ -13,7 +13,7 @@ function Main() {
       <Foo elem="Elementary" />
       <ul>
         <li><a href="">anchor</a></li>
-        <li>2</li>
+        <li>{null} number {false && 2}</li>
         <li><a href="">anchor2</a> More</li>
       </ul>
       <ol>

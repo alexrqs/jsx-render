@@ -36,7 +36,7 @@ function dom(tag, attrs, ...children) {
       if (prop === 'style') {
         element.style.cssText = objectToStyleString(attrs[prop])
       } else if ( prop === 'ref' && typeof attrs.ref === 'function') {
-        attrs.ref(element)
+        attrs.ref(element, attrs)
       } else if (prop === 'className') {
         element.setAttribute('class', attrs[prop])
       } else if (prop === 'xlinkHref') {
@@ -49,7 +49,7 @@ function dom(tag, attrs, ...children) {
     return element
   }
 
-  throw new Error(`jsx-render does not handle ${typeof tag}`)
+  console.error(`jsx-render does not handle ${typeof tag}`)
 }
 
 export default dom

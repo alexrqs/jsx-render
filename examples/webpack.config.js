@@ -1,7 +1,6 @@
 const path = require('path');
 const HTMLPage = require('html-webpack-plugin')
 
-console.log(process.cwd())
 module.exports = {
   devServer: {
     open: true,
