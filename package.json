@@ -1,11 +1,11 @@
 {
-  "name": "jsx-render-krypton9208",
+  "name": "jsx-render",
   "version": "0.6.5",
   "description": "",
   "main": "lib/dom.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/krypton9208/jsx-render.git"
+    "url": "git+https://github.com/alecsgone/jsx-render.git"
   },
   "keywords": [
     "JSX",
@@ -14,9 +14,9 @@
   ],
   "author": "Aleks",
   "bugs": {
-    "url": "https://github.com/krypton9208/jsx-render/issues"
+    "url": "https://github.com/alecsgone/jsx-render/issues"
   },
-  "homepage": "https://github.com/krypton9208/jsx-render#readme",
+  "homepage": "https://github.com/alecsgone/jsx-render#readme",
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server --config examples/webpack.config.js --hot",
