@@ -69,6 +69,10 @@ function render() {
 ### How To Install
 The required packages are `@babel/plugin-syntax-jsx`, `@babel/plugin-transform-react-jsx` and of course `jsx-render`, additionally you will need babel-cli, webpack or any other way to transpile the code that you prefer.
 
+```sh
+$ npm install jsx-render @babel/plugin-syntax-jsx @babel/plugin-transform-react-jsx
+```
+
 ### Getting started
 
 Make sure you have the pragma fn defined and its name is "dom"

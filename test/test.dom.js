@@ -220,7 +220,7 @@ test('Component render xlinkHref for SVG sprites', t => {
 })
 
 test('Component render dangerouslySetInnerHTML', t => {
-  function renderDataAttrs() {
+  function render() {
     return (
       <div dangerouslySetInnerHTML={{__html: '<span>StrangerDanger</span>'}} />
     )
