@@ -226,6 +226,6 @@ test('Component render dangerouslySetInnerHTML', t => {
     )
   }
 
-  t.is(renderDataAttrs().outerHTML, '<div><span>StrangerDanger</span></div>',
+  t.is(render().outerHTML, '<div><span>StrangerDanger</span></div>',
     'dangerouslySetInnerHTML Renders Correctly')
 })
