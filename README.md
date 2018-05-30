@@ -89,7 +89,7 @@ Make sure you have the pragma fn defined and its name is "dom"
 
 Now you can create components e.g.
 ```jsx
-import dom from 'js-render'
+import dom from 'jsx-render'
 
 const DummyComponent = props => (<div>{props.children}</div>)
 export default DummyComponent
