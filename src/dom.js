@@ -41,6 +41,8 @@ function dom(tag, attrs, ...children) {
         element.setAttribute('class', attrs[prop])
       } else if (prop === 'xlinkHref') {
         element.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', attrs[prop])
+      } else if (prop === 'dangerouslySetInnerHTML') {
+        element.innerHTML = attrs[prop].__html;
       } else if (attrs.hasOwnProperty(prop)) {
         element.setAttribute(prop, attrs[prop])
       }

@@ -218,3 +218,14 @@ test('Component render xlinkHref for SVG sprites', t => {
   t.is(renderDataAttrs().outerHTML, '<svg><use xlink:href="#star-open"></use></svg>',
     'SVG sprites Renders Correctly')
 })
+
+test('Component render dangerouslySetInnerHTML', t => {
+  function renderDataAttrs() {
+    return (
+      <div dangerouslySetInnerHTML={{__html: '<span>StrangerDanger</span>'}} />
+    )
+  }
+
+  t.is(renderDataAttrs().outerHTML, '<div><span>StrangerDanger</span></div>',
+    'dangerouslySetInnerHTML Renders Correctly')
+})
