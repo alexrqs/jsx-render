@@ -1,60 +1,97 @@
 import { isSVG, objectToStyleString, createFragmentFrom } from './utils'
 import isClass from 'is-class'
 
-function dom(tag, attrs, ...children) {
-  // Custom Components will be functions
-  if (typeof tag === 'function') {
-    tag.defaultProps = tag.defaultProps || {}
+/**
+ * The tag name and create an html together with the attributes
+ *
+ * @param  {String} tagName name as string, e.g. 'div', 'span', 'svg'
+ * @param  {Object} attrs html attributes e.g. data-, width, src
+ * @param  {Array} children html nodes from inside de elements
+ * @return {HTMLElement} html node with attrs
+ */
+function createElements (tagName, attrs, children) {
+  const element = isSVG(tagName)
+    ? document.createElementNS('http://www.w3.org/2000/svg', tagName)
+    : document.createElement(tagName)
 
-    const props = Object.assign({}, tag.defaultProps, attrs, { children })
-    const bridge = isClass(tag)
-      ? new tag(props).render
-      : tag
-    const result = bridge(props)
+  // one or multiple will be evaluated to append as string or HTMLElement
+  const fragment = createFragmentFrom(children)
+  element.appendChild(fragment)
 
-    switch (result) {
-      case 'FRAGMENT':
-        return createFragmentFrom(children)
-
-      // Portals are useful to render modals
-      // allow render on a different element than the parent of the chain
-      // and leave a comment instead
-      case 'PORTAL':
-        bridge.target.appendChild(createFragmentFrom(children))
-        return document.createComment("Portal Used")
-      default:
-        return result
+  for (const prop in attrs) {
+    if (prop === 'style') {
+      // e.g. origin: <element style={{ prop: value }} />
+      element.style.cssText = objectToStyleString(attrs[prop])
+    } else if ( prop === 'ref' && typeof attrs.ref === 'function') {
+      attrs.ref(element, attrs)
+    } else if (prop === 'className') {
+      element.setAttribute('class', attrs[prop])
+    } else if (prop === 'xlinkHref') {
+      element.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', attrs[prop])
+    } else if (prop === 'dangerouslySetInnerHTML') {
+      element.innerHTML = attrs[prop].__html;
+    } else if (attrs.hasOwnProperty(prop)) {
+      // any other prop will be set as attribute
+      // but validation is necessary to
+      // avoid setting as attribute a property from the prototype chain
+      element.setAttribute(prop, attrs[prop])
     }
+  }
+
+  return element
+}
+
+/**
+ * The JSXTag will be unwrapped returning the html
+ *
+ * @param  {Function} JSXTag name as string, e.g. 'div', 'span', 'svg'
+ * @param  {Object} elementProps custom jsx attributes e.g. fn, strings
+ * @param  {Array} children html nodes from inside de elements
+ *
+ * @return {Function} returns de 'dom' (fn) executed, leaving the HTMLElement
+ *
+ * JSXTag:  function Comp(props) {
+ *   return dom("span", null, props.num);
+ * }
+ */
+function composeToFunction (JSXTag, elementProps, children) {
+  JSXTag.defaultProps = JSXTag.defaultProps || {}
+
+  const props = Object.assign({}, JSXTag.defaultProps, elementProps, { children })
+  const bridge = isClass(JSXTag)
+    ? new JSXTag(props).render
+    : JSXTag
+  const result = bridge(props)
+
+  switch (result) {
+    case 'FRAGMENT':
+      return createFragmentFrom(children)
+
+    // Portals are useful to render modals
+    // allow render on a different element than the parent of the chain
+    // and leave a comment instead
+    case 'PORTAL':
+      bridge.target.appendChild(createFragmentFrom(children))
+      return document.createComment("Portal Used")
+    default:
+      return result
+  }
+}
+
+function dom(element, attrs, ...children) {
+  // Custom Components will be functions
+  if (typeof element === 'function') {
+    // e.g. const CustomTag = ({ w }) => <span width={w} />
+    // will be used
+    // e.g. <CustomTag w={1} />
+    // becomes: CustomTag({ w: 1})
+    return composeToFunction(element, attrs, children)
   }
 
   // regular html components will be strings to create the elements
   // this is handled by the babel plugins
-  if (typeof tag === 'string') {
-    const element = isSVG(tag)
-      ? document.createElementNS('http://www.w3.org/2000/svg', tag)
-      : document.createElement(tag)
-
-    // one or multiple will be evaluated to append as string or HTMLElement
-    const fragment = createFragmentFrom(children)
-    element.appendChild(fragment)
-
-    for (const prop in attrs) {
-      if (prop === 'style') {
-        element.style.cssText = objectToStyleString(attrs[prop])
-      } else if ( prop === 'ref' && typeof attrs.ref === 'function') {
-        attrs.ref(element, attrs)
-      } else if (prop === 'className') {
-        element.setAttribute('class', attrs[prop])
-      } else if (prop === 'xlinkHref') {
-        element.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', attrs[prop])
-      } else if (prop === 'dangerouslySetInnerHTML') {
-        element.innerHTML = attrs[prop].__html;
-      } else if (attrs.hasOwnProperty(prop)) {
-        element.setAttribute(prop, attrs[prop])
-      }
-    }
-
-    return element
+  if (typeof element === 'string') {
+    return createElements(element, attrs, children)
   }
 
   console.error(`jsx-render does not handle ${typeof tag}`)
