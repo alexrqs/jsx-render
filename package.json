@@ -24,6 +24,7 @@
     "build": "babel src --out-dir lib",
     "eslint": "eslint src/.",
     "precommit": "pretty-quick --staged",
+    "prepush": "npm run test",
     "prepare": "npm run test && npm run build",
     "prepublish": "npm run test && npm run build",
     "posttest": "npm run eslint",
