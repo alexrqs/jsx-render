@@ -114,3 +114,4 @@ const Modal = props => (
 
 ## Recipes
 - [Redux](recipes/redux.md)
+- [ClassComponents](recipes/classComponents.md)

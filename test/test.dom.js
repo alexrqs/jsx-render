@@ -254,3 +254,40 @@ test('Class Component render', t => {
   t.is(render().outerHTML, '<img src="http://lorempixum.com/" width="10px" height="20px">',
     'dangerouslySetInnerHTML Renders Correctly')
 })
+
+
+test('Class Complex Component render', t => {
+  class Bar {
+    render(props) {
+      return (
+        <span>
+          {props.children}
+        </span>
+      )
+    }
+  }
+
+  class Foo {
+    constructor(props) {
+      this.props = props
+      this.render = this.render.bind(this)
+    }
+
+    render(props) {
+      return (
+        <Bar>
+          <img src="http://lorempixum.com/" width={props.width} height={this.props.height} />
+        </Bar>
+      )
+    }
+  }
+
+  function render() {
+    return (
+      <Foo width="10px" height="20px" />
+    )
+  }
+
+  t.is(render().outerHTML, '<span><img src="http://lorempixum.com/" width="10px" height="20px"></span>',
+    'dangerouslySetInnerHTML Renders Correctly')
+})
