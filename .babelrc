@@ -1,5 +1,5 @@
 {
-  "presets": ["@babel/preset-env"],
+  "presets": ["babel-preset-primavera"],
   "plugins": [
     "@babel/plugin-syntax-jsx",
     ["@babel/plugin-transform-react-jsx", { "pragma": "dom" }]
