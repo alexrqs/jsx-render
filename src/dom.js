@@ -1,10 +1,16 @@
 import { isSVG, objectToStyleString, createFragmentFrom } from './utils'
+import isClass from 'is-class'
 
 function dom(tag, attrs, ...children) {
   // Custom Components will be functions
   if (typeof tag === 'function') {
     tag.defaultProps = tag.defaultProps || {}
-    const result = tag(Object.assign({}, tag.defaultProps, attrs, { children }))
+
+    const props = Object.assign({}, tag.defaultProps, attrs, { children })
+    const bridge = isClass(tag)
+      ? new tag(props).render
+      : tag
+    const result = bridge(props)
 
     switch (result) {
       case 'FRAGMENT':
@@ -14,7 +20,7 @@ function dom(tag, attrs, ...children) {
       // allow render on a different element than the parent of the chain
       // and leave a comment instead
       case 'PORTAL':
-        tag.target.appendChild(createFragmentFrom(children))
+        bridge.target.appendChild(createFragmentFrom(children))
         return document.createComment("Portal Used")
       default:
         return result

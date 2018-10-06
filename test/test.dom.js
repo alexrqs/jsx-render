@@ -229,3 +229,28 @@ test('Component render dangerouslySetInnerHTML', t => {
   t.is(render().outerHTML, '<div><span>StrangerDanger</span></div>',
     'dangerouslySetInnerHTML Renders Correctly')
 })
+
+
+test.only('Class Component render', t => {
+  class Icon {
+    constructor(props) {
+      this.props = props
+      this.render = this.render.bind(this)
+    }
+
+    render(props) {
+      return (
+        <img src="http://lorempixum.com/" width={props.width} height={this.props.height} />
+      )
+    }
+  }
+
+  function render() {
+    return (
+      <Icon width="10px" height="20px" />
+    )
+  }
+
+  t.is(render().outerHTML, '<img src="http://lorempixum.com/" width="10px" height="20px">',
+    'dangerouslySetInnerHTML Renders Correctly')
+})
