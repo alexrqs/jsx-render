@@ -231,7 +231,7 @@ test('Component render dangerouslySetInnerHTML', t => {
 })
 
 
-test.only('Class Component render', t => {
+test('Class Component render', t => {
   class Icon {
     constructor(props) {
       this.props = props
