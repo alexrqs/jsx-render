@@ -1,6 +1,6 @@
 {
   "name": "jsx-render",
-  "version": "0.6.6",
+  "version": "0.6.7-beta.0",
   "description": "",
   "main": "lib/dom.js",
   "repository": {
