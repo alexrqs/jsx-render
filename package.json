@@ -22,7 +22,8 @@
     "start": "webpack-dev-server --config examples/webpack.config.js --hot",
     "dev": "babel src --out-dir lib --watch",
     "build": "babel src --out-dir lib",
-    "prepublish": "npm run build",
+    "prepare": "npm run test && npm run build",
+    "prepublish": "npm run test && npm run build",
     "test": "ava --verbose"
   },
   "ava": {
