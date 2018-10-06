@@ -10,6 +10,7 @@ Small file to render jsx as a stateless component from react but without the hea
 
 
 ## Features
+- **new** Class suport with default target: the `render()` method
 - Render Basic Single Components `<div />`
 - Conditional Component `{condition ? <foo/> : <bar/>}`
 - Component with Data Attributes `<div data-some="attr">`
