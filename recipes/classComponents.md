@@ -40,3 +40,7 @@ function Bar() {
   return <Foo baz="100vw" qux="100vh" />
 }
 ```
+
+##### So what is the difference?
+
+`JSXComponent` also includes a copy of events, read the [Events recipe](events.md).
