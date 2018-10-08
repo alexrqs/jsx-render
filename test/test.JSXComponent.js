@@ -25,3 +25,29 @@ test('Basic extends JSXComponent <div />', t => {
     'Single Component Extends Correctly',
   )
 })
+
+test('JSXComponent events', t => {
+  let clickLog = false
+
+  class Component extends JSXComponent {
+    click() {
+      clickLog = true
+    }
+
+    render(props) {
+      return (
+        <button id="clickable" ref={super.ref} onClick={this.click}>
+          click me!
+        </button>
+      )
+    }
+  }
+
+  document.body.appendChild(dom(Component))
+
+  const HTMLEvents = document.createEvent('HTMLEvents')
+  HTMLEvents.initEvent('click', false, true)
+  document.querySelector('#clickable').dispatchEvent(HTMLEvents)
+
+  t.true(clickLog, 'click events work Correctly')
+})

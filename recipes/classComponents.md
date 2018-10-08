@@ -1,6 +1,11 @@
-### Classes for complex components
+## Classes for complex components
 
-#### Usage
+### Usage
+
+#### Create the class
+
+- First way is to create the `bind` and pass the props yourself
+
 ```jsx
 class Foo {
   constructor(props) {
@@ -9,17 +14,29 @@ class Foo {
   }
 
   render(props) {
-    return (
-      <img src="http://lorempixum.com/" width={props.width} height={this.props.height} />
-    )
+    return <span baz={props.baz} qux={this.props.qux} />
   }
 }
+```
+
+#### Extend JSXComponent
+
+- Second is to import the JSXComponent
+
+```jsx
+import JSXComponent from 'jsx-render/lib/JSXComponent'
+
+class Foo extends JSXComponent {
+  render(props) {
+    return <span baz={props.baz} qux={this.props.qux} />
+  }
+}
+```
 
 ...
 
-function bar () {
-  return (
-    <Foo width="100vw" height="100vh" />
-  )
+```jsx
+function Bar() {
+  return <Foo baz="100vw" qux="100vh" />
 }
 ```
