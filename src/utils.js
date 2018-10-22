@@ -31,7 +31,7 @@ export function createFragmentFrom(children) {
     } else if (child === false || child === null) {
       // expression evaluated as false e.g. {false && <Elem />}
       // expression evaluated as false e.g. {null && <Elem />}
-    } else if (process.env.NODE_ENV) {
+    } else if (process.env.NODE_ENV === 'development') {
       // later other things could not be HTMLElement nor strings
       console.log(child, 'is not appendable')
     }

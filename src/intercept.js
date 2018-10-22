@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import cheerio from 'cheerio'
 
 class Intercept {
@@ -8,7 +9,7 @@ class Intercept {
     this.childAt = this.childAt.bind(this)
   }
 
-  childAt(index) {
+  childAt() {
     return this.$(this.nodes.outerHTML)
       .get(0)
       .text()
@@ -16,9 +17,7 @@ class Intercept {
 
   find(selector) {
     const findAPI = {
-      html: () => {
-        return this.$.html(selector)
-      },
+      html: () => this.$.html(selector),
     }
 
     return findAPI
