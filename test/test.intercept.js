@@ -65,21 +65,3 @@ test('Intercept#RAW', t => {
     'parent',
   )
 })
-
-test('Intercept#childAt', t => {
-  class Element extends JSXComponent {
-    render() {
-      return (
-        <ul>
-          <li>Foo</li>
-          <li>Bar</li>
-          <li>Baz</li>
-        </ul>
-      )
-    }
-  }
-
-  const wrapper = new Intercept(<Element />)
-
-  t.is(wrapper.childAt(1), '<li>Bar</li>')
-})

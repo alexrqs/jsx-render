@@ -28,7 +28,7 @@
     "prepare": "npm run test && npm run build",
     "prepublish": "npm run test && npm run build",
     "posttest": "npm run eslint",
-    "test": "ava test/test.intercept.js --verbose --watch"
+    "test": "ava test/test.intercept.js --verbose"
   },
   "ava": {
     "require": [
