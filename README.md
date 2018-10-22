@@ -8,6 +8,7 @@ Small file to render jsx as a stateless component from react but without the hea
 
 - [Features](#features)
 - [How To Install](#how-to-install)
+- [How To test](#recipes)
 - [Recipes](#recipes)
 
 ## Features
@@ -129,3 +130,4 @@ const Modal = props => (
 - [Redux](recipes/redux.md)
 - [ClassComponents](recipes/classComponents.md)
 - [Events](recipes/events.md)
+- [Testing](recipes/testing.md)
