@@ -28,7 +28,7 @@
     "prepare": "npm run test && npm run build",
     "prepublish": "npm run test && npm run build",
     "posttest": "npm run eslint",
-    "test": "ava --verbose"
+    "test": "ava test/test.intercept.js --verbose --watch"
   },
   "ava": {
     "require": [
@@ -58,5 +58,7 @@
     "webpack-cli": "^2.1.4",
     "webpack-dev-server": "^3.1.4"
   },
-  "dependencies": {}
+  "optionalDependencies": {
+    "cheerio": "^1.0.0-rc.2"
+  }
 }
