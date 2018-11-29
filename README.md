@@ -6,79 +6,23 @@ Small file to render jsx as a stateless component from react but without the hea
 
 ## Contents
 
-- [Features](#features)
+- [Quick Start](#quick-start)
 - [How To Install](#how-to-install)
-- [How To test](#recipes)
+- [Features](#features)
+- [How To test](recipes/testing.md)
 - [Recipes](#recipes)
 
-## Features
+### Quick Start
 
-- **new** Class suport with default target: the `render()` method
-- Render Basic Single Components `<div />`
-- Conditional Component `{condition ? <foo/> : <bar/>}`
-- Component with Data Attributes `<div data-some="attr">`
-- Component with Attributes `<img src="foo.jpg">`
-- Nested Component ul>li>a
-- Siblings Components ul>li\*3
-- Components with classname p.chan
-- Map components & numbers `array.map(item => <div>{item}</div>)`
-- [Fragments](#fragments)
-- [Portals](#portals)
-- SVG
-- Component Props `<Custom foo="foo">`
-- Component Children `<Custom>children</Custom>`
-- Component render xlinkHref for SVG sprites
-- [dangerouslySetInnerHTML](#dangerouslysetinnerhtml)
-- Components withState `Redux` not included
+- Thanks to [jsx-render starter](https://github.com/alecsgone/lz-jsx-render) you can just run one simple command and have webpack with stylus or sass ready to go.
 
-## Fragments
-
-```jsx
-import dom, { Fragments } from 'jsx-render'
-
-// Return siblings without direct parent component
-const Foo = () => (
-  <Fragments>
-    <li />
-    <li />
-  </Fragments>
-)
-const ul = document.createElement('ul')
-ul.appendChild(<Foo />)
-```
-
-## Portals
-
-```jsx
-import dom, { portalCreator } from 'jsx-render'
-
-// can render the component on a diferent node than the parentNode
-// useful for modals, and if the argument is not a node
-// it will render as body direct son by default
-function Component(node) {
-  const Portal = portalCreator(node)
-
-  return (
-    <div>
-      <Portal>
-        <span>uno</span>
-      </Portal>
-    </div>
-  )
-}
-```
-
-## dangerouslySetInnerHTML
-
-```jsx
-function render() {
-  return <div dangerouslySetInnerHTML={{ __html: '<span>StrangerDanger</span>' }} />
-}
+```sh
+$ mkdir sample && cd $_ && npx lz-cli gh alecsgone/lz-jsx-render
 ```
 
 ### How To Install
 
-The required packages are `@babel/plugin-syntax-jsx`, `@babel/plugin-transform-react-jsx` and of course `jsx-render`, additionally you will need babel-cli, webpack or any other way to transpile the code that you prefer.
+The required packages are `@babel/plugin-syntax-jsx`, `@babel/plugin-transform-react-jsx` and of course `jsx-render`, additionally you will need @babel/core, webpack or any other way to transpile the code that you prefer.
 
 ```sh
 $ npm install jsx-render @babel/plugin-syntax-jsx @babel/plugin-transform-react-jsx
@@ -125,7 +69,72 @@ const Modal = props => (
 )
 ```
 
-## Recipes
+### Features
+
+- **new** Class suport with default target: the `render()` method
+- Render Basic Single Components `<div />`
+- Conditional Component `{condition ? <foo/> : <bar/>}`
+- Component with Data Attributes `<div data-some="attr">`
+- Component with Attributes `<img src="foo.jpg">`
+- Nested Component ul>li>a
+- Siblings Components ul>li\*3
+- Components with classname p.chan
+- Map components & numbers `array.map(item => <div>{item}</div>)`
+- [Fragments](#fragments)
+- [Portals](#portals)
+- SVG
+- Component Props `<Custom foo="foo">`
+- Component Children `<Custom>children</Custom>`
+- Component render xlinkHref for SVG sprites
+- [dangerouslySetInnerHTML](#dangerouslysetinnerhtml)
+- Components withState `Redux` not included
+
+### Fragments
+
+```jsx
+import dom, { Fragments } from 'jsx-render'
+
+// Return siblings without direct parent component
+const Foo = () => (
+  <Fragments>
+    <li />
+    <li />
+  </Fragments>
+)
+const ul = document.createElement('ul')
+ul.appendChild(<Foo />)
+```
+
+### Portals
+
+```jsx
+import dom, { portalCreator } from 'jsx-render'
+
+// can render the component on a diferent node than the parentNode
+// useful for modals, and if the argument is not a node
+// it will render as body direct son by default
+function Component(node) {
+  const Portal = portalCreator(node)
+
+  return (
+    <div>
+      <Portal>
+        <span>uno</span>
+      </Portal>
+    </div>
+  )
+}
+```
+
+### dangerouslySetInnerHTML
+
+```jsx
+function render() {
+  return <div dangerouslySetInnerHTML={{ __html: '<span>StrangerDanger</span>' }} />
+}
+```
+
+### Recipes
 
 - [Redux](recipes/redux.md)
 - [ClassComponents](recipes/classComponents.md)
