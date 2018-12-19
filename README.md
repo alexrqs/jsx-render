@@ -35,10 +35,9 @@ Make sure you have the pragma fn defined and its name is "dom"
 ```json
 // .babelrc
 {
-  "presets": ["@babel/preset-env"],
-  "plugins": [
-    "@babel/plugin-syntax-jsx",
-    ["@babel/plugin-transform-react-jsx", { "pragma": "dom" }]
+  "presets": [
+    "babel-preset-primavera",
+    ["@babel/preset-react", { "pragma": "dom" }]
   ]
 }
 ```
