@@ -2,11 +2,6 @@ const path = require('path')
 const HTMLPage = require('html-webpack-plugin')
 
 module.exports = {
-  devServer: {
-    open: true,
-    port: 3030,
-  },
-
   devtool: 'cheap-source-code',
   entry: {
     front: path.resolve(__dirname, './front.js'),
@@ -21,7 +16,7 @@ module.exports = {
         loader: 'babel-loader',
         exclude: /node_modules/,
         options: {
-          extends: path.resolve(__dirname, '../.babelrc'),
+          extends: path.resolve(__dirname, '../../.babelrc'),
         },
       },
     ],
@@ -31,6 +26,4 @@ module.exports = {
     path: path.resolve('./examples/ssr/public/'),
     filename: '[name].js',
   },
-
-  plugins: [new HTMLPage()],
 }

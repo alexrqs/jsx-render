@@ -52,8 +52,9 @@ function createElements(tagName, attrs, children) {
  *   return dom("span", null, props.num);
  * }
  */
-function composeToFunction(JSXTag, elementProps, children) {
-  const props = Object.assign({}, JSXTag.defaultProps || {}, elementProps, { children })
+function composeToFunction(JSXTag, elementProps, child) {
+  console.log('JSXTag: ', JSXTag)
+  const props = Object.assign({}, JSXTag.defaultProps || {}, elementProps, { child })
   const bridge = JSXTag.prototype.render ? new JSXTag(props).render : JSXTag
   const result = bridge(props)
 
@@ -72,7 +73,7 @@ function composeToFunction(JSXTag, elementProps, children) {
   }
 }
 
-function dom(element, attrs, ...children) {
+function dom({ element, attrs, ...children }) {
   // Custom Components will be functions
   if (typeof element === 'function') {
     // e.g. const CustomTag = ({ w }) => <span width={w} />
@@ -88,7 +89,7 @@ function dom(element, attrs, ...children) {
     return createElements(element, attrs, children)
   }
 
-  return console.error(`jsx-render does not handle ${typeof tag}`)
+  return console.error(`jsx-render does not handle ${element}`)
 }
 
 export default dom
