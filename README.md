@@ -47,7 +47,7 @@ Now you can create components e.g.
 ```jsx
 import dom from 'jsx-render'
 
-const DummyComponent = props => <div>{props.children}</div>
+const DummyComponent = props => (<div>{props.children}</div>)
 export default DummyComponent
 ```
 
