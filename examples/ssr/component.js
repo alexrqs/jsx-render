@@ -1,23 +1,30 @@
+import window from 'global/window'
 import dom from '../../src/dom2'
 import Logo from '../logo'
+
+const websites = ['foo', 'bar', 'baz', 'quex']
+
+window.location.search
 
 const Headline = () => (
   <div>
     <h2 className="css">Title</h2>
     <Logo color="#34ff90" />
+    <p>
+      Lorem <br /> Ipsum
+    </p>
+    <hr />
+    <img
+      src="https://www.cocacola.es/content/dam/GO/CokeZone/Common/global/logo/logodesktop/coca-cola-logo-260x260.png"
+      width="150"
+      height="150"
+    />
     <ul>
-      <li>
-        <a href="http://google.com">google</a>
-      </li>
-      <li>
-        <a href="http://google.com">google</a>
-      </li>
-      <li>
-        <a href="http://google.com">google</a>
-      </li>
-      <li>
-        <a href="http://google.com">google</a>
-      </li>
+      {websites.map(web => (
+        <li>
+          <a href="http://google.com">{web}</a>
+        </li>
+      ))}
     </ul>
   </div>
 )

@@ -50,7 +50,10 @@ function parseTag(tag, attrs, content) {
   const attributes = attrs && Object.keys(attrs).length > 0 ? parseAttrs(attrs) : ''
   const innerHTML = content instanceof Array ? render(content) : content
   // console.log('innerHTML: ', innerHTML, content);
-  return `<${tag} ${attributes}>${innerHTML}</${tag}>`
+
+  return selfClosing.indexOf(tag) > -1
+    ? `<${tag} ${attributes} />`
+    : `<${tag} ${attributes}>${innerHTML}</${tag}>`
 }
 
 function render(entry) {
