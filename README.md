@@ -2,7 +2,7 @@
 
 [![travis](https://travis-ci.org/alecsgone/jsx-render.svg?branch=master)](https://travis-ci.org/alecsgone/jsx-render)
 
-Small file to render jsx as a stateless component from react but without the heavy kb use of it.
+Small file to render jsx as a stateless component from react but without the heavy kb use of it. and now includes server side rendering
 
 ## Contents
 
@@ -35,11 +35,7 @@ Make sure you have the pragma fn defined and its name is "dom"
 ```json
 // .babelrc
 {
-  "presets": ["@babel/preset-env"],
-  "plugins": [
-    "@babel/plugin-syntax-jsx",
-    ["@babel/plugin-transform-react-jsx", { "pragma": "dom" }]
-  ]
+  "presets": ["@babel/preset-env", ["@babel/preset-react", { "pragma": "dom" }]]
 }
 ```
 
@@ -50,6 +46,17 @@ import dom from 'jsx-render'
 
 const DummyComponent = props => <div>{props.children}</div>
 export default DummyComponent
+```
+
+and render is possible both client and server side (check the recipe for SSR)
+
+```jsx
+// client
+import renderClient from 'jsx-render/renderClient'
+import DummyComponent from './DummyComponent'
+
+const element = renderClient(<DummyComponent />)
+document.body.appendChild(element)
 ```
 
 or Fragments
@@ -140,3 +147,4 @@ function render() {
 - [ClassComponents](recipes/classComponents.md)
 - [Events](recipes/events.md)
 - [Testing](recipes/testing.md)
+- [Server Side Rendering](recipes/ssr.md)
