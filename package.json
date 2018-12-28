@@ -1,8 +1,8 @@
 {
   "name": "jsx-render",
-  "version": "1.1.1",
+  "version": "2.0.0-alpha.0",
   "description": "",
-  "main": "lib/element.js",
+  "main": "element.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/alecsgone/jsx-render.git"
@@ -24,7 +24,7 @@
     "ssr": "npm run ssrbuildclient & babel-node --config-file ./.babelrc examples/ssr/server.js",
     "start": "webpack-dev-server --config examples/webpack.config.js --hot",
     "dev": "babel src --out-dir lib --watch",
-    "build": "babel src --out-dir lib",
+    "build": "babel src --out-dir ./",
     "eslint": "eslint src/.",
     "precommit": "pretty-quick --staged",
     "prepush": "npm run test",
