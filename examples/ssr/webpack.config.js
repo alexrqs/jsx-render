@@ -2,9 +2,14 @@ const path = require('path')
 const HTMLPage = require('html-webpack-plugin')
 
 module.exports = {
+  devServer: {
+    port: 3030,
+  },
+
   devtool: 'cheap-source-code',
+
   entry: {
-    front: path.resolve(__dirname, './front.js'),
+    client: path.resolve(__dirname, './client.js'),
   },
 
   mode: 'development',
@@ -23,7 +28,8 @@ module.exports = {
   },
 
   output: {
-    path: path.resolve('./examples/ssr/public/'),
     filename: '[name].js',
   },
+
+  plugins: [new HTMLPage()],
 }

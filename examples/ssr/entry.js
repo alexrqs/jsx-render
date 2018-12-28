@@ -1,15 +1,13 @@
-import window from 'global/window'
-import dom from '../../src/dom2'
-import Logo from '../logo'
+const dom = (element, attrs, ...children) => ({ element, attrs, children })
+
+// import Logo from '../logo'
 
 const websites = ['foo', 'bar', 'baz', 'quex']
-
-window.location.search
 
 const Headline = () => (
   <div>
     <h2 className="css">Title</h2>
-    <Logo color="#34ff90" />
+    {/* <Logo color="#34ff90" /> */}
     <p>
       Lorem <br /> Ipsum
     </p>

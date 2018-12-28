@@ -11,7 +11,7 @@ export function objectToStyleString(styles) {
     .join(';')
 }
 
-export function createFragmentFrom([children]) {
+export function createFragmentFrom(children) {
   // fragments will help later to append multiple children to the initial node
   const fragment = document.createDocumentFragment()
 

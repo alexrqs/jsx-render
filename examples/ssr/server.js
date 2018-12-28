@@ -1,7 +1,7 @@
 import express from 'express'
-import Component from './component'
-import render from '../../src/render'
-import dom from '../../src/dom2'
+import App from './entry'
+import renderServer from '../../src/renderServer'
+import dom from '../../src/element'
 
 const app = express()
 
@@ -17,8 +17,7 @@ app.get('/', function root(req, res) {
     </head>
     <body>
       <h1>SSR</h1>
-      <div class="app">${render(<Component />)}</div>
-      <script src="/front.js"></script>
+      <div class="app">${renderServer(<App />)}</div>
     </body>
     </html>
   `)

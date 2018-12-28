@@ -1,4 +1,4 @@
-import dom from '../src/dom2'
+import dom from '../src/element'
 
 const Logo = ({ color } = {}) => (
   <svg

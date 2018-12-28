@@ -9,12 +9,13 @@ import { isSVG, objectToStyleString, createFragmentFrom } from './utils'
  * @return {HTMLElement} html node with attrs
  */
 function createElements(tagName, attrs, children) {
+  const processedChildren = children.map(child => renderClient(child))
   const element = isSVG(tagName)
     ? document.createElementNS('http://www.w3.org/2000/svg', tagName)
     : document.createElement(tagName)
 
   // one or multiple will be evaluated to append as string or HTMLElement
-  const fragment = createFragmentFrom(children)
+  const fragment = createFragmentFrom(processedChildren)
   element.appendChild(fragment)
 
   Object.keys(attrs || {}).forEach(prop => {
@@ -52,13 +53,12 @@ function createElements(tagName, attrs, children) {
  *   return dom("span", null, props.num);
  * }
  */
-function composeToFunction(JSXTag, elementProps, child) {
-  console.log('JSXTag: ', JSXTag)
-  const props = Object.assign({}, JSXTag.defaultProps || {}, elementProps, { child })
+function composeToFunction(JSXTag, elementProps, children) {
+  const props = Object.assign({}, JSXTag.defaultProps || {}, elementProps, { children })
   const bridge = JSXTag.prototype.render ? new JSXTag(props).render : JSXTag
   const result = bridge(props)
 
-  switch (result) {
+  switch (result.element) {
     case 'FRAGMENT':
       return createFragmentFrom(children)
 
@@ -69,11 +69,12 @@ function composeToFunction(JSXTag, elementProps, child) {
       bridge.target.appendChild(createFragmentFrom(children))
       return document.createComment('Portal Used')
     default:
-      return result
+      return renderClient(result)
   }
 }
 
-function dom({ element, attrs, ...children }) {
+function renderClient({ element, attrs, children }) {
+  console.log('cshildren', element)
   // Custom Components will be functions
   if (typeof element === 'function') {
     // e.g. const CustomTag = ({ w }) => <span width={w} />
@@ -92,7 +93,7 @@ function dom({ element, attrs, ...children }) {
   return console.error(`jsx-render does not handle ${element}`)
 }
 
-export default dom
+export default renderClient
 export const Fragment = () => 'FRAGMENT'
 export const portalCreator = node => {
   function Portal() {
