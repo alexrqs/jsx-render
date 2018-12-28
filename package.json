@@ -19,8 +19,9 @@
   "homepage": "https://github.com/alecsgone/jsx-render#readme",
   "license": "MIT",
   "scripts": {
-    "ssrclient": "webpack-dev-server --config examples/ssr/webpack.config.js",
-    "ssr": "babel-node --config-file ./.babelrc examples/ssr/server.js",
+    "ssrbuildclient": "webpack --config examples/ssr/webpack.config.js",
+    "ssrclient": "ONLY_CLIENT=true webpack-dev-server --config examples/ssr/webpack.config.js",
+    "ssr": "npm run ssrbuildclient & babel-node --config-file ./.babelrc examples/ssr/server.js",
     "start": "webpack-dev-server --config examples/webpack.config.js --hot",
     "dev": "babel src --out-dir lib --watch",
     "build": "babel src --out-dir lib",

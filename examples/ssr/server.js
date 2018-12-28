@@ -18,6 +18,7 @@ app.get('/', function root(req, res) {
     <body>
       <h1>SSR</h1>
       <div class="app">${renderServer(<App />)}</div>
+      <script src="/client.js"></script>
     </body>
     </html>
   `)

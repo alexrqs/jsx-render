@@ -28,8 +28,9 @@ module.exports = {
   },
 
   output: {
+    path: path.resolve(__dirname, 'public'),
     filename: '[name].js',
   },
 
-  plugins: [new HTMLPage()],
+  plugins: [process.env.ONLY_CLIENT && new HTMLPage()].filter(Boolean),
 }

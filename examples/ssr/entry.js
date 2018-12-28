@@ -3,6 +3,12 @@ import Logo from '../logo'
 
 const websites = ['foo', 'bar', 'baz', 'quex']
 
+function handleClick(node) {
+  node.addEventListener('click', event => {
+    alert('chimulla')
+  })
+}
+
 const Headline = () => (
   <div>
     <h2 className="css">Title</h2>
@@ -24,6 +30,7 @@ const Headline = () => (
         </li>
       ))}
     </ul>
+    <button ref={handleClick}>Click me!</button>
   </div>
 )
 
