@@ -3,3 +3,13 @@ src
 examples
 .babelrc
 .travis.yml
+recipes
+test
+.babelrc
+.editorconfig
+README.md
+yarn.lock
+.travis.yml
+.gitignore
+.prettierrc
+yarn-error.log

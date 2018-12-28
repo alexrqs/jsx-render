@@ -2,7 +2,7 @@
   "name": "jsx-render",
   "version": "1.1.1",
   "description": "",
-  "main": "lib/dom.js",
+  "main": "lib/element.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/alecsgone/jsx-render.git"
