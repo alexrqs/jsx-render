@@ -9,13 +9,12 @@ import { isSVG, objectToStyleString, createFragmentFrom } from './utils'
  * @return {HTMLElement} html node with attrs
  */
 function createElements(tagName, attrs, children) {
-  const processedChildren = children.map(child => renderClient(child))
   const element = isSVG(tagName)
     ? document.createElementNS('http://www.w3.org/2000/svg', tagName)
     : document.createElement(tagName)
 
   // one or multiple will be evaluated to append as string or HTMLElement
-  const fragment = createFragmentFrom(processedChildren)
+  const fragment = createFragmentFrom(children)
   element.appendChild(fragment)
 
   Object.keys(attrs || {}).forEach(prop => {
@@ -73,8 +72,21 @@ function composeToFunction(JSXTag, elementProps, children) {
   }
 }
 
+function processChildren(children) {
+  return children.map(child => {
+    if (child instanceof Array) {
+      return processChildren(child)
+    }
+
+    if (typeof child === 'object') {
+      return renderClient(child)
+    }
+
+    return child
+  })
+}
+
 function renderClient({ element, attrs, children }) {
-  console.log('cshildren', element)
   // Custom Components will be functions
   if (typeof element === 'function') {
     // e.g. const CustomTag = ({ w }) => <span width={w} />
@@ -87,7 +99,7 @@ function renderClient({ element, attrs, children }) {
   // regular html components will be strings to create the elements
   // this is handled by the babel plugins
   if (typeof element === 'string') {
-    return createElements(element, attrs, children)
+    return createElements(element, attrs, processChildren(children))
   }
 
   return console.error(`jsx-render does not handle ${element}`)

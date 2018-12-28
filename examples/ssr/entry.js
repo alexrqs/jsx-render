@@ -1,19 +1,19 @@
-const dom = (element, attrs, ...children) => ({ element, attrs, children })
-
-// import Logo from '../logo'
+import dom from '../../src/element'
+import Logo from '../logo'
 
 const websites = ['foo', 'bar', 'baz', 'quex']
 
 const Headline = () => (
   <div>
     <h2 className="css">Title</h2>
-    {/* <Logo color="#34ff90" /> */}
+    <Logo color="#34ff90" />
+    <Logo color="green" />
     <p>
       Lorem <br /> Ipsum
     </p>
     <hr />
     <img
-      src="https://www.cocacola.es/content/dam/GO/CokeZone/Common/global/logo/logodesktop/coca-cola-logo-260x260.png"
+      src="https://ih1.redbubble.net/image.10212890.8041/fc,550x550,white_brown.jpg"
       width="150"
       height="150"
     />

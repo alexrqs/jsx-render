@@ -1,5 +1,6 @@
 import dom from '../../src/element'
 import renderClient from '../../src/renderClient'
+import App from './entry'
 
 const Headline = () => (
   <div>
@@ -7,11 +8,13 @@ const Headline = () => (
       <span>Text</span>
     </h2>
     <p>Lorem</p>
+    <Logo color="green" />
+    <Logo color="green" />
   </div>
 )
 
-const app = document.createElement('div')
-app.className = 'app'
-app.appendChild(renderClient(<Headline />))
+const content = document.createElement('div')
+content.className = 'app'
+content.appendChild(renderClient(<App />))
 
-document.body.appendChild(app)
+document.body.appendChild(content)
