@@ -80,7 +80,7 @@ function composeToFunction(JSXTag, elementProps, children) {
     // allow render on a different element than the parent of the chain
     // and leave a comment instead
     case 'PORTAL':
-      bridge.target.appendChild(createFragmentFrom(children))
+      bridge.target.appendChild(createFragmentFrom(processChildren(result.children)))
       return document.createComment('Portal Used')
     default:
       // eslint-disable-next-line
@@ -108,16 +108,3 @@ function renderClient({ element, attrs, children }) {
 }
 
 export default renderClient
-export const portalCreator = node => {
-  function Portal() {
-    return 'PORTAL'
-  }
-
-  Portal.target = document.body
-
-  if (node && node.nodeType === Node.ELEMENT_NODE) {
-    Portal.target = node
-  }
-
-  return Portal
-}

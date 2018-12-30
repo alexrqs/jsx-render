@@ -152,32 +152,33 @@ test('Fragments', t => {
   )
 })
 
-// test('Portals', t => {
-//   function render(node) {
-//     const Portal = portalCreator(node)
+test('Portals', t => {
+  function render(node) {
+    const Portal = portalCreator(node)
 
-//     return (
-//       <ul>
-//         <Portal>
-//           <li>uno</li>
-//           <li>uno</li>
-//         </Portal>
-//       </ul>
-//     )
-//   }
+    return renderClient(
+      <ul>
+        <Portal>
+          <li>uno</li>
+          <li>uno</li>
+        </Portal>
+      </ul>,
+    )
+  }
 
-//   const base = document.createElement('h2')
-//   render(base)
+  const base = document.createElement('h2')
+  render(base)
 
-//   t.is(base.innerHTML, '<li>uno</li><li>uno</li>',
-//     'Portals Renders Outside Correctly')
+  t.is(base.innerHTML, '<li>uno</li><li>uno</li>', 'Portals Renders Outside Correctly')
 
-//   t.is(render().outerHTML, '<ul><!--Portal Used--></ul>',
-//     'Portals renders inside another element')
+  t.is(render().outerHTML, '<ul><!--Portal Used--></ul>', 'Portals renders inside another element')
 
-//   t.is(document.body.outerHTML, '<body><li>uno</li><li>uno</li></body>',
-//     'Portals renders inside the Body tag by default')
-// })
+  t.is(
+    document.body.outerHTML,
+    '<body><li>uno</li><li>uno</li></body>',
+    'Portals renders inside the Body tag by default',
+  )
+})
 
 test('SVG', t => {
   function render() {
