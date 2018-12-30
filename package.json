@@ -1,6 +1,6 @@
 {
   "name": "jsx-render",
-  "version": "2.0.0-alpha.1",
+  "version": "2.0.0",
   "description": "",
   "main": "element.js",
   "repository": {
