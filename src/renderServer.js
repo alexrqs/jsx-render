@@ -1,3 +1,4 @@
+let tabs = 0
 const selfClosing = [
   'area',
   'base',
@@ -13,6 +14,7 @@ const selfClosing = [
   'source',
   'track',
   'wbr',
+  'path',
 ]
 const { objectToStyleString } = require('./utils')
 
@@ -50,10 +52,10 @@ function parseTag(tag, attrs, content) {
   const attributes = attrs && Object.keys(attrs).length > 0 ? parseAttrs(attrs) : ''
   const innerHTML = content instanceof Array ? render(content) : content
   // console.log('innerHTML: ', innerHTML, content);
-
+  const separation = ' '.repeat(1)
   return selfClosing.indexOf(tag) > -1
-    ? `<${tag} ${attributes} />`
-    : `<${tag} ${attributes}>${innerHTML}</${tag}>`
+    ? `<${tag} ${attributes} />\n${separation}`
+    : `\n${separation}<${tag} ${attributes}>\n${separation}${innerHTML}\n${separation}</${tag}>`
 }
 
 function render(entry) {

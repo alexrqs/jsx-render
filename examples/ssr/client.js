@@ -3,12 +3,12 @@ import renderClient from '../../src/renderClient'
 import App from './entry'
 
 const content = document.querySelector('.app') || document.createElement('div')
-content.className = 'app'
 
-document.body.appendChild(content)
-try {
-  content.replaceChild(renderClient(<App />), content.childNodes[0])
-} catch (e) {
+if (content) {
+  content.replaceChild(renderClient(<App />), content.firstElementChild)
+} else {
+  content.className = 'app'
+  document.body.appendChild(content)
   content.appendChild(renderClient(<App />))
 }
 
