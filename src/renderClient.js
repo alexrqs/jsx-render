@@ -39,6 +39,21 @@ function createElements(tagName, attrs, children) {
   return element
 }
 
+function processChildren(children) {
+  return children.map(child => {
+    if (child instanceof Array) {
+      return processChildren(child)
+    }
+
+    if (typeof child === 'object') {
+      // eslint-disable-next-line
+      return renderClient(child)
+    }
+
+    return child
+  })
+}
+
 /**
  * The JSXTag will be unwrapped returning the html
  *
@@ -59,7 +74,7 @@ function composeToFunction(JSXTag, elementProps, children) {
 
   switch (result.element) {
     case 'FRAGMENT':
-      return createFragmentFrom(children)
+      return createFragmentFrom(processChildren(result.children))
 
     // Portals are useful to render modals
     // allow render on a different element than the parent of the chain
@@ -68,22 +83,9 @@ function composeToFunction(JSXTag, elementProps, children) {
       bridge.target.appendChild(createFragmentFrom(children))
       return document.createComment('Portal Used')
     default:
+      // eslint-disable-next-line
       return renderClient(result)
   }
-}
-
-function processChildren(children) {
-  return children.map(child => {
-    if (child instanceof Array) {
-      return processChildren(child)
-    }
-
-    if (typeof child === 'object') {
-      return renderClient(child)
-    }
-
-    return child
-  })
 }
 
 function renderClient({ element, attrs, children }) {
@@ -106,7 +108,6 @@ function renderClient({ element, attrs, children }) {
 }
 
 export default renderClient
-export const Fragment = () => 'FRAGMENT'
 export const portalCreator = node => {
   function Portal() {
     return 'PORTAL'

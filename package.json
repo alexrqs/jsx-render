@@ -30,8 +30,8 @@
     "prepush": "npm run test",
     "prepare": "npm run test && npm run build",
     "prepublish": "npm run test && npm run build",
-    "posttest": "echo \"No lint yet\"",
-    "test": "echo \"No tests yet\""
+    "posttest": "npm run eslint",
+    "test": "ava test/*.* --verbose"
   },
   "ava": {
     "require": [
@@ -46,7 +46,7 @@
     "@babel/plugin-syntax-jsx": "^7.0.0",
     "@babel/plugin-transform-react-jsx": "^7.0.0",
     "@babel/register": "^7.0.0",
-    "ava": "next",
+    "ava": "^1.0.1",
     "babel-loader": "^8.0.0-beta.3",
     "babel-preset-primavera": "^1.1.0",
     "body-parser": "^1.18.3",
