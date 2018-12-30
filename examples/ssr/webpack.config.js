@@ -3,13 +3,13 @@ const HTMLPage = require('html-webpack-plugin')
 
 module.exports = {
   devServer: {
-    open: true,
     port: 3030,
   },
 
   devtool: 'cheap-source-code',
+
   entry: {
-    front: path.resolve(__dirname, './front.js'),
+    client: path.resolve(__dirname, './client.js'),
   },
 
   mode: 'development',
@@ -21,16 +21,16 @@ module.exports = {
         loader: 'babel-loader',
         exclude: /node_modules/,
         options: {
-          extends: path.resolve(__dirname, '../.babelrc'),
+          extends: path.resolve(__dirname, '../../.babelrc'),
         },
       },
     ],
   },
 
   output: {
-    path: path.resolve('./examples/ssr/public/'),
+    path: path.resolve(__dirname, 'public'),
     filename: '[name].js',
   },
 
-  plugins: [new HTMLPage()],
+  plugins: [process.env.ONLY_CLIENT && new HTMLPage()].filter(Boolean),
 }

@@ -39,6 +39,21 @@ function createElements(tagName, attrs, children) {
   return element
 }
 
+function processChildren(children) {
+  return children.map(child => {
+    if (child instanceof Array) {
+      return processChildren(child)
+    }
+
+    if (typeof child === 'object') {
+      // eslint-disable-next-line
+      return renderClient(child)
+    }
+
+    return child
+  })
+}
+
 /**
  * The JSXTag will be unwrapped returning the html
  *
@@ -57,22 +72,23 @@ function composeToFunction(JSXTag, elementProps, children) {
   const bridge = JSXTag.prototype.render ? new JSXTag(props).render : JSXTag
   const result = bridge(props)
 
-  switch (result) {
+  switch (result.element) {
     case 'FRAGMENT':
-      return createFragmentFrom(children)
+      return createFragmentFrom(processChildren(result.children))
 
     // Portals are useful to render modals
     // allow render on a different element than the parent of the chain
     // and leave a comment instead
     case 'PORTAL':
-      bridge.target.appendChild(createFragmentFrom(children))
+      bridge.target.appendChild(createFragmentFrom(processChildren(result.children)))
       return document.createComment('Portal Used')
     default:
-      return result
+      // eslint-disable-next-line
+      return renderClient(result)
   }
 }
 
-function dom(element, attrs, ...children) {
+function renderClient({ element, attrs, children }) {
   // Custom Components will be functions
   if (typeof element === 'function') {
     // e.g. const CustomTag = ({ w }) => <span width={w} />
@@ -85,24 +101,10 @@ function dom(element, attrs, ...children) {
   // regular html components will be strings to create the elements
   // this is handled by the babel plugins
   if (typeof element === 'string') {
-    return createElements(element, attrs, children)
+    return createElements(element, attrs, processChildren(children))
   }
 
-  return console.error(`jsx-render does not handle ${typeof tag}`)
+  return console.error(`jsx-render does not handle ${element}`)
 }
 
-export default dom
-export const Fragment = () => 'FRAGMENT'
-export const portalCreator = node => {
-  function Portal() {
-    return 'PORTAL'
-  }
-
-  Portal.target = document.body
-
-  if (node && node.nodeType === Node.ELEMENT_NODE) {
-    Portal.target = node
-  }
-
-  return Portal
-}
+export default renderClient

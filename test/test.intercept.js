@@ -1,20 +1,21 @@
 import test from 'ava'
-import dom from '../src/dom'
+import dom from '../src/element'
+import renderClient from '../src/renderClient'
 import JSXComponent from '../src/JSXComponent'
 import Intercept from '../src/intercept'
 
 test('Intercept#html', t => {
-  const wrapper = new Intercept(<div />)
+  const wrapper = new Intercept(renderClient(<div />))
 
   t.is(wrapper.html(), '<div></div>')
 })
 
 test('Intercept#find', t => {
   const wrapper = new Intercept(
-    (
+    renderClient(
       <div>
         <span>Foo</span>
-      </div>
+      </div>,
     ),
   )
 
@@ -23,10 +24,10 @@ test('Intercept#find', t => {
 
 test('Intercept#hasClass', t => {
   const wrapper = new Intercept(
-    (
+    renderClient(
       <div>
         <span className="foo">Foo</span>
-      </div>
+      </div>,
     ),
   )
 
@@ -34,11 +35,11 @@ test('Intercept#hasClass', t => {
   t.is(wrapper.hasClass('bar'), false)
 
   const wrapperSec = new Intercept(
-    (
+    renderClient(
       <div>
         <span className="foo">Foo</span>
         <span className="bar baz" />
-      </div>
+      </div>,
     ),
   )
 
@@ -47,10 +48,10 @@ test('Intercept#hasClass', t => {
 
 test('Intercept#RAW', t => {
   const wrapper = new Intercept(
-    (
+    renderClient(
       <div id="parent">
         <span className="foo">Foo</span>
-      </div>
+      </div>,
     ),
   )
   const $ = wrapper.RAW

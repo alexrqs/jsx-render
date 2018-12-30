@@ -1,6 +1,6 @@
-import dom from '../src/dom'
+import dom from '../src/element'
 
-const Logo = () => (
+const Logo = ({ color } = {}) => (
   <svg
     id="Layer_1"
     data-name="Layer 1"
@@ -13,7 +13,7 @@ const Logo = () => (
       <path
         d="M241.74,421.43v-41h28.61v41H241.74Zm24.47-4.13V384.56H245.86V417.3h20.35Z"
         transform="translate(-241.74 -380.43)"
-        style={{ fill: '#ffcd05' }}
+        style={{ fill: `${color || '#ffcd05'}` }}
       />
       <path
         d="M289.36,398.82h-1.77c-2.32-3.28-4.63-6.54-6.93-10.23h0v10.23h-2V384.55h1.77c2.32,3.26,4.63,6.5,6.91,10.17h0V384.55h2v14.27Z"

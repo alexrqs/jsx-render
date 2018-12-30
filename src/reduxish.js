@@ -1,4 +1,4 @@
-import dom from './dom'
+import renderClient from './renderClient'
 
 function updateElement(parent, next, prev) {
   // later virtualDOM mods
@@ -13,20 +13,20 @@ export function withState(elements, store) {
   let nextProps
 
   store.subscribe(() => {
-    const nextNode = dom(() => elements(nextProps))
+    const nextNode = renderClient(() => elements(nextProps))
     updateElement(parentNode, nextNode, parentNode.firstChild)
   })
 
   return props => {
     nextProps = props
-    return dom(
-      'span',
-      {
+    return renderClient({
+      tag: 'span',
+      attrs: {
         ref: node => {
           parentNode = node
         },
       },
-      elements(props),
-    )
+      children: elements(props),
+    })
   }
 }
