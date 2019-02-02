@@ -20,7 +20,7 @@ function createElements(tagName, attrs, children) {
   Object.keys(attrs || {}).forEach(prop => {
     if (prop === 'style') {
       // e.g. origin: <element style={{ prop: value }} />
-      Object.assign(element.style, attrs[prop]);
+      Object.assign(element.style, attrs[prop])
     } else if (prop === 'ref' && typeof attrs.ref === 'function') {
       attrs.ref(element, attrs)
     } else if (prop === 'className') {
