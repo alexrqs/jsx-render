@@ -5,11 +5,6 @@ export function isSVG(element) {
   return SVGTags.some(tag => patt.test(tag))
 }
 
-export function objectToStyleString(styles) {
-  return Object.keys(styles)
-    .map(prop => `${prop}: ${styles[prop]}`)
-    .join(';')
-}
 
 export function createFragmentFrom(children) {
   // fragments will help later to append multiple children to the initial node
