@@ -1,4 +1,4 @@
-import { isSVG, objectToStyleString, createFragmentFrom } from './utils'
+import { isSVG, createFragmentFrom } from './utils'
 
 /**
  * The tag name and create an html together with the attributes
