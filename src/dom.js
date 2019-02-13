@@ -1,4 +1,4 @@
-import { isSVG, objectToStyleString, createFragmentFrom } from './utils'
+import { isSVG, createFragmentFrom } from './utils'
 
 /**
  * The tag name and create an html together with the attributes
@@ -20,7 +20,7 @@ function createElements(tagName, attrs, children) {
   Object.keys(attrs || {}).forEach(prop => {
     if (prop === 'style') {
       // e.g. origin: <element style={{ prop: value }} />
-      element.style.cssText = objectToStyleString(attrs[prop])
+      Object.assign(element.style, attrs[prop])
     } else if (prop === 'ref' && typeof attrs.ref === 'function') {
       attrs.ref(element, attrs)
     } else if (prop === 'className') {
