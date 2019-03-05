@@ -1,4 +1,4 @@
-import { isSVG, createFragmentFrom } from './utils'
+import { isSVG, createFragmentFrom, EVENT_LISTENERS } from './utils'
 
 /**
  * The tag name and create an html together with the attributes
@@ -6,7 +6,7 @@ import { isSVG, createFragmentFrom } from './utils'
  * @param  {String} tagName name as string, e.g. 'div', 'span', 'svg'
  * @param  {Object} attrs html attributes e.g. data-, width, src
  * @param  {Array} children html nodes from inside de elements
- * @return {HTMLElement} html node with attrs
+ * @return {HTMLElement|SVGElement} html node with attrs
  */
 function createElements(tagName, attrs, children) {
   const element = isSVG(tagName)
@@ -30,6 +30,8 @@ function createElements(tagName, attrs, children) {
     } else if (prop === 'dangerouslySetInnerHTML') {
       // eslint-disable-next-line no-underscore-dangle
       element.innerHTML = attrs[prop].__html
+    } else if (prop in EVENT_LISTENERS) {
+      element.addEventListener(EVENT_LISTENERS[prop], attrs[prop])
     } else {
       // any other prop will be set as attribute
       element.setAttribute(prop, attrs[prop])
