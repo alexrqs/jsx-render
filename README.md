@@ -138,4 +138,4 @@ function render() {
 - [Redux](recipes/redux.md)
 - [ClassComponents](recipes/classComponents.md)
 - [Events](recipes/events.md)
-- [Testing](recipes/testing.md)
+[Testing](recipes/testing.md)
