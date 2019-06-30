@@ -5,7 +5,6 @@ export function isSVG(element) {
   return SVGTags.some(tag => patt.test(tag))
 }
 
-
 export function createFragmentFrom(children) {
   // fragments will help later to append multiple children to the initial node
   const fragment = document.createDocumentFragment()
@@ -26,9 +25,8 @@ export function createFragmentFrom(children) {
     } else if (child === false || child === null) {
       // expression evaluated as false e.g. {false && <Elem />}
       // expression evaluated as false e.g. {null && <Elem />}
-    } else if (process.env.NODE_ENV === 'development') {
+    } else {
       // later other things could not be HTMLElement nor strings
-      console.log(child, 'is not appendable')
     }
   }
 
