@@ -2,6 +2,7 @@
   "name": "jsx-render",
   "version": "1.1.2",
   "description": "",
+  "browser": "build/dom.js",
   "main": "lib/dom.js",
   "repository": {
     "type": "git",
@@ -21,7 +22,7 @@
   "scripts": {
     "start": "webpack-dev-server --config examples/webpack.config.js --hot",
     "dev": "babel src --out-dir lib --watch",
-    "build": "babel src --out-dir lib",
+    "build": "babel src --out-dir lib & webpack",
     "eslint": "eslint src/.",
     "precommit": "pretty-quick --staged",
     "prepush": "npm run test",
