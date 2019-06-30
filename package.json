@@ -1,6 +1,6 @@
 {
   "name": "jsx-render",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "",
   "browser": "build/dom.js",
   "main": "lib/dom.js",
