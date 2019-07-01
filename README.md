@@ -14,10 +14,30 @@ Small file to render jsx as a stateless component from react but without the hea
 
 ### Quick Start
 
-- Thanks to [jsx-render starter](https://github.com/alecsgone/lz-jsx-render) you can just run one simple command and have webpack with stylus or sass ready to go.
+```html
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
+<script type="text/javascript" src="https://alecsgone.github.io/jsx-render/jsx.js"></script>
+<script>
+  Babel.registerPreset('jsx-render', {
+    presets: [[Babel.availablePresets['es2015']]],
+    plugins: [
+      Babel.availablePlugins['syntax-jsx'],
+      [
+        Babel.availablePlugins['transform-react-jsx'],
+        {
+          pragma: 'jsx.dom',
+          pragmaFrag: 'jsx.Fragment',
+        },
+      ],
+    ],
+  })
+</script>
 
-```sh
-$ mkdir sample && cd $_ && npx lz-cli gh alecsgone/lz-jsx-render
+<script type="text/babel" data-presets="jsx-render">
+  const foo = () => <p>Hello world</p>
+
+  document.body.appendChild(foo())
+</script>
 ```
 
 ### How To Install
@@ -35,10 +55,7 @@ Make sure you have the pragma fn defined and its name is "dom"
 ```json
 // .babelrc
 {
-  "presets": [
-    "babel-preset-primavera",
-    ["@babel/preset-react", { "pragma": "dom" }]
-  ]
+  "presets": ["babel-preset-primavera", ["@babel/preset-react", { "pragma": "dom" }]]
 }
 ```
 
@@ -47,7 +64,7 @@ Now you can create components e.g.
 ```jsx
 import dom from 'jsx-render'
 
-const DummyComponent = props => (<div>{props.children}</div>)
+const DummyComponent = props => <div>{props.children}</div>
 export default DummyComponent
 ```
 
@@ -140,4 +157,5 @@ function render() {
 - [Events](recipes/events.md)
 
 ### Testing
+
 [Testing](recipes/testing.md)
