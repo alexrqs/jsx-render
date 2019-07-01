@@ -12,9 +12,10 @@ Small file to render jsx as a stateless component from react but without the hea
 - [How To test](recipes/testing.md)
 - [Recipes](#recipes)
 
-### Quick Start
+### Quick Start (no build system, just plain html)
 
 ```html
+<!-- index.html -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
 <script type="text/javascript" src="https://alecsgone.github.io/jsx-render/jsx.js"></script>
 <script>
