@@ -12,7 +12,9 @@ Small file to render jsx as a stateless component from react but without the hea
 - [How To test](recipes/testing.md)
 - [Recipes](#recipes)
 
-### Quick Start (no build system, just plain html)
+### Quick Start
+
+(no build system, just plain html)
 
 ```html
 <!-- index.html -->
