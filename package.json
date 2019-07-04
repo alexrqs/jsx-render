@@ -2,7 +2,7 @@
   "name": "jsx-render",
   "version": "1.2.0",
   "description": "",
-  "browser": "build/jsx.js",
+  "bundle": "docs/jsx.js",
   "main": "lib/dom.js",
   "repository": {
     "type": "git",
