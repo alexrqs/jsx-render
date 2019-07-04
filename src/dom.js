@@ -25,6 +25,8 @@ function createElements(tagName, attrs, children) {
       attrs.ref(element, attrs)
     } else if (prop === 'className') {
       element.setAttribute('class', attrs[prop])
+    } else if (prop === 'htmlFor') {
+      element.setAttribute('for', attrs[prop])
     } else if (prop === 'xlinkHref') {
       element.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', attrs[prop])
     } else if (prop === 'dangerouslySetInnerHTML') {
