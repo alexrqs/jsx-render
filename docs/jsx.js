@@ -1,52 +1,52 @@
-!(function(e, t) {
+!(function(e, n) {
   'object' == typeof exports && 'object' == typeof module
-    ? (module.exports = t())
+    ? (module.exports = n())
     : 'function' == typeof define && define.amd
-    ? define([], t)
+    ? define([], n)
     : 'object' == typeof exports
-    ? (exports.jsx = t())
-    : (e.jsx = t())
+    ? (exports.jsx = n())
+    : (e.jsx = n())
 })(window, function() {
   return (function(e) {
-    var t = {}
-    function n(r) {
-      if (t[r]) return t[r].exports
-      var o = (t[r] = { i: r, l: !1, exports: {} })
-      return e[r].call(o.exports, o, o.exports, n), (o.l = !0), o.exports
+    var n = {}
+    function t(o) {
+      if (n[o]) return n[o].exports
+      var r = (n[o] = { i: o, l: !1, exports: {} })
+      return e[o].call(r.exports, r, r.exports, t), (r.l = !0), r.exports
     }
     return (
-      (n.m = e),
-      (n.c = t),
-      (n.d = function(e, t, r) {
-        n.o(e, t) || Object.defineProperty(e, t, { enumerable: !0, get: r })
+      (t.m = e),
+      (t.c = n),
+      (t.d = function(e, n, o) {
+        t.o(e, n) || Object.defineProperty(e, n, { enumerable: !0, get: o })
       }),
-      (n.r = function(e) {
+      (t.r = function(e) {
         'undefined' != typeof Symbol &&
           Symbol.toStringTag &&
           Object.defineProperty(e, Symbol.toStringTag, { value: 'Module' }),
           Object.defineProperty(e, '__esModule', { value: !0 })
       }),
-      (n.t = function(e, t) {
-        if ((1 & t && (e = n(e)), 8 & t)) return e
-        if (4 & t && 'object' == typeof e && e && e.__esModule) return e
-        var r = Object.create(null)
+      (t.t = function(e, n) {
+        if ((1 & n && (e = t(e)), 8 & n)) return e
+        if (4 & n && 'object' == typeof e && e && e.__esModule) return e
+        var o = Object.create(null)
         if (
-          (n.r(r),
-          Object.defineProperty(r, 'default', { enumerable: !0, value: e }),
-          2 & t && 'string' != typeof e)
+          (t.r(o),
+          Object.defineProperty(o, 'default', { enumerable: !0, value: e }),
+          2 & n && 'string' != typeof e)
         )
-          for (var o in e)
-            n.d(
-              r,
+          for (var r in e)
+            t.d(
               o,
-              function(t) {
-                return e[t]
-              }.bind(null, o),
+              r,
+              function(n) {
+                return e[n]
+              }.bind(null, r),
             )
-        return r
+        return o
       }),
-      (n.n = function(e) {
-        var t =
+      (t.n = function(e) {
+        var n =
           e && e.__esModule
             ? function() {
                 return e.default
@@ -54,38 +54,67 @@
             : function() {
                 return e
               }
-        return n.d(t, 'a', t), t
+        return t.d(n, 'a', n), n
       }),
-      (n.o = function(e, t) {
-        return Object.prototype.hasOwnProperty.call(e, t)
+      (t.o = function(e, n) {
+        return Object.prototype.hasOwnProperty.call(e, n)
       }),
-      (n.p = ''),
-      n((n.s = 0))
+      (t.p = ''),
+      t((t.s = 0))
     )
   })([
-    function(e, t, n) {
+    function(e, n, t) {
       'use strict'
+      t.r(n)
+      var o = [].concat(
+        [
+          'onClick',
+          'onContextMenu',
+          'onDoubleClick',
+          'onDrag',
+          'onDragEnd',
+          'onDragEnter',
+          'onDragExit',
+          'onDragLeave',
+          'onDragOver',
+          'onDragStart',
+          'onDrop',
+          'onMouseDown',
+          'onMouseEnter',
+          'onMouseLeave',
+          'onMouseMove',
+          'onMouseOut',
+          'onMouseOver',
+          'onMouseUp',
+        ],
+        ['onTouchCancel', 'onTouchEnd', 'onTouchMove', 'onTouchStart'],
+        ['onKeyDown', 'onKeyPress', 'onKeyUp'],
+        ['onFocus', 'onBlur'],
+        ['onChange', 'onInput', 'onInvalid', 'onSubmit'],
+        ['onScroll'],
+        ['onLoad', 'onError'],
+      )
       function r(e) {
-        var t = document.createDocumentFragment()
+        var n = document.createDocumentFragment()
         return (
-          e.forEach(function e(n) {
+          e.forEach(function e(t) {
             if (
-              n instanceof HTMLElement ||
-              n instanceof SVGElement ||
-              n instanceof Comment ||
-              n instanceof DocumentFragment
+              t instanceof HTMLElement ||
+              t instanceof SVGElement ||
+              t instanceof Comment ||
+              t instanceof DocumentFragment
             )
-              t.appendChild(n)
-            else if ('string' == typeof n || 'number' == typeof n) {
-              var r = document.createTextNode(n)
-              t.appendChild(r)
-            } else n instanceof Array && n.forEach(e)
+              n.appendChild(t)
+            else if ('string' == typeof t || 'number' == typeof t) {
+              var o = document.createTextNode(t)
+              n.appendChild(o)
+            } else t instanceof Array && t.forEach(e)
           }),
-          t
+          n
         )
       }
-      function o(e) {
-        return (o =
+      function u(e) {
+        return (u =
           'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
             ? function(e) {
                 return typeof e
@@ -99,74 +128,73 @@
                   : typeof e
               })(e)
       }
-      function u(e, t, n) {
-        var o = (function(e) {
-            var t = new RegExp('^'.concat(e, '$'), 'i')
+      function c(e, n, t) {
+        var u = (function(e) {
+            var n = new RegExp('^'.concat(e, '$'), 'i')
             return ['path', 'svg', 'use', 'g'].some(function(e) {
-              return t.test(e)
+              return n.test(e)
             })
           })(e)
             ? document.createElementNS('http://www.w3.org/2000/svg', e)
             : document.createElement(e),
-          u = r(n)
+          c = r(t)
         return (
-          o.appendChild(u),
-          Object.keys(t || {}).forEach(function(e) {
-            'style' === e
-              ? Object.assign(o.style, t[e])
-              : 'ref' === e && 'function' == typeof t.ref
-              ? t.ref(o, t)
-              : 'className' === e
-              ? o.setAttribute('class', t[e])
-              : 'xlinkHref' === e
-              ? o.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', t[e])
-              : 'dangerouslySetInnerHTML' === e
-              ? (o.innerHTML = t[e].__html)
-              : o.setAttribute(e, t[e])
+          u.appendChild(c),
+          Object.keys(n || {}).forEach(function(e) {
+            if ('style' === e) Object.assign(u.style, n[e])
+            else if ('ref' === e && 'function' == typeof n.ref) n.ref(u, n)
+            else if ('className' === e) u.setAttribute('class', n[e])
+            else if ('htmlFor' === e) u.setAttribute('for', n[e])
+            else if ('xlinkHref' === e)
+              u.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', n[e])
+            else if ('dangerouslySetInnerHTML' === e) u.innerHTML = n[e].__html
+            else if (o.includes(e)) {
+              var t = e.replace(/^on/, '').toLowerCase()
+              u.addEventListener(t, n[e])
+            } else u.setAttribute(e, n[e])
           }),
-          o
+          u
         )
       }
-      n.r(t)
-      var f = function(e, t) {
-        for (var n = arguments.length, f = new Array(n > 2 ? n - 2 : 0), c = 2; c < n; c++)
-          f[c - 2] = arguments[c]
+      var i = function(e, n) {
+        for (var t = arguments.length, o = new Array(t > 2 ? t - 2 : 0), i = 2; i < t; i++)
+          o[i - 2] = arguments[i]
         return 'function' == typeof e
-          ? (function(e, t, n) {
-              var o = Object.assign({}, e.defaultProps || {}, t, { children: n }),
+          ? (function(e, n, t) {
+              var o = Object.assign({}, e.defaultProps || {}, n, { children: t }),
                 u = e.prototype.render ? new e(o).render : e,
-                f = u(o)
-              switch (f) {
+                c = u(o)
+              switch (c) {
                 case 'FRAGMENT':
-                  return r(n)
+                  return r(t)
                 case 'PORTAL':
-                  return u.target.appendChild(r(n)), document.createComment('Portal Used')
+                  return u.target.appendChild(r(t)), document.createComment('Portal Used')
                 default:
-                  return f
+                  return c
               }
-            })(e, t, f)
+            })(e, n, o)
           : 'string' == typeof e
-          ? u(e, t, f)
+          ? c(e, n, o)
           : console.error(
               'jsx-render does not handle '.concat(
-                'undefined' == typeof tag ? 'undefined' : o(tag),
+                'undefined' == typeof tag ? 'undefined' : u(tag),
               ),
             )
       }
-      n.d(t, 'jsx', function() {
-        return c
+      t.d(n, 'jsx', function() {
+        return a
       })
-      var c = {
-        dom: f,
+      var a = {
+        dom: i,
         Fragment: function() {
           return 'FRAGMENT'
         },
         portalCreator: function(e) {
-          function t() {
+          function n() {
             return 'PORTAL'
           }
           return (
-            (t.target = document.body), e && e.nodeType === Node.ELEMENT_NODE && (t.target = e), t
+            (n.target = document.body), e && e.nodeType === Node.ELEMENT_NODE && (n.target = e), n
           )
         },
       }
