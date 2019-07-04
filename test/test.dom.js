@@ -291,3 +291,13 @@ test('Class Complex Component render', t => {
   t.is(render().outerHTML, '<span><img src="http://lorempixum.com/" width="10px" height="20px"></span>',
     'dangerouslySetInnerHTML Renders Correctly')
 })
+
+test('Event listener', t => {
+  let clicked = false
+  function render() { return <div onClick={() => (clicked = true)} /> }
+
+  const rendered = render()
+  rendered.click()
+
+  t.true(clicked, 'Clicked should be set to true')
+})
