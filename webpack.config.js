@@ -1,7 +1,7 @@
 const path = require('path')
 
 module.exports = {
-  devtool: 'cheap-source-code',
+  devtool: 'source-map',
   entry: {
     jsx: path.resolve(__dirname, './src/standalone.js'),
   },

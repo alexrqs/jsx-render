@@ -1,18 +1,16 @@
 // eslint-disable-next-line
-import cheerio from 'cheerio'
+import { load } from 'cheerio'
 
 class Intercept {
   constructor(nodes) {
     this.nodes = nodes
-    this.$ = cheerio.load(nodes.outerHTML)
+    this.$ = load(nodes.outerHTML)
 
     this.childAt = this.childAt.bind(this)
   }
 
   childAt() {
-    return this.$(this.nodes.outerHTML)
-      .get(0)
-      .text()
+    return this.$(this.nodes.outerHTML).get(0).text()
   }
 
   find(selector) {

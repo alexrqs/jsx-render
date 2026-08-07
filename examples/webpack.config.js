@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require('path')
 const HTMLPage = require('html-webpack-plugin')
 
 module.exports = {
@@ -7,7 +7,7 @@ module.exports = {
     port: 3030,
   },
 
-  devtool: 'cheap-source-code',
+  devtool: 'eval-cheap-module-source-map',
   entry: {
     main: path.resolve(__dirname, './index.js'),
   },
@@ -15,14 +15,16 @@ module.exports = {
   mode: 'development',
 
   module: {
-    rules: [{
-      test: /\.jsx?$/,
-      loader: 'babel-loader',
-      exclude: /node_modules/,
-      options: {
-        extends: path.resolve(__dirname, '../.babelrc'),
+    rules: [
+      {
+        test: /\.jsx?$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+        options: {
+          extends: path.resolve(__dirname, '../.babelrc'),
+        },
       },
-    }]
+    ],
   },
 
   output: {
@@ -30,8 +32,5 @@ module.exports = {
     filename: '[name].js',
   },
 
-  plugins: [
-    new HTMLPage(),
-  ],
-
+  plugins: [new HTMLPage()],
 }

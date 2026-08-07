@@ -1,203 +1,201 @@
-!(function(e, n) {
+!(function (e, t) {
   'object' == typeof exports && 'object' == typeof module
-    ? (module.exports = n())
+    ? (module.exports = t())
     : 'function' == typeof define && define.amd
-    ? define([], n)
-    : 'object' == typeof exports
-    ? (exports.jsx = n())
-    : (e.jsx = n())
-})(window, function() {
-  return (function(e) {
-    var n = {}
-    function t(o) {
-      if (n[o]) return n[o].exports
-      var r = (n[o] = { i: o, l: !1, exports: {} })
-      return e[o].call(r.exports, r, r.exports, t), (r.l = !0), r.exports
-    }
-    return (
-      (t.m = e),
-      (t.c = n),
-      (t.d = function(e, n, o) {
-        t.o(e, n) || Object.defineProperty(e, n, { enumerable: !0, get: o })
-      }),
-      (t.r = function(e) {
-        'undefined' != typeof Symbol &&
-          Symbol.toStringTag &&
-          Object.defineProperty(e, Symbol.toStringTag, { value: 'Module' }),
-          Object.defineProperty(e, '__esModule', { value: !0 })
-      }),
-      (t.t = function(e, n) {
-        if ((1 & n && (e = t(e)), 8 & n)) return e
-        if (4 & n && 'object' == typeof e && e && e.__esModule) return e
-        var o = Object.create(null)
-        if (
-          (t.r(o),
-          Object.defineProperty(o, 'default', { enumerable: !0, value: e }),
-          2 & n && 'string' != typeof e)
-        )
-          for (var r in e)
-            t.d(
-              o,
-              r,
-              function(n) {
-                return e[n]
-              }.bind(null, r),
-            )
-        return o
-      }),
-      (t.n = function(e) {
-        var n =
-          e && e.__esModule
-            ? function() {
-                return e.default
-              }
-            : function() {
-                return e
-              }
-        return t.d(n, 'a', n), n
-      }),
-      (t.o = function(e, n) {
-        return Object.prototype.hasOwnProperty.call(e, n)
-      }),
-      (t.p = ''),
-      t((t.s = 0))
-    )
-  })([
-    function(e, n, t) {
-      'use strict'
-      t.r(n)
-      var o = [].concat(
-        [
-          'onClick',
-          'onContextMenu',
-          'onDoubleClick',
-          'onDrag',
-          'onDragEnd',
-          'onDragEnter',
-          'onDragExit',
-          'onDragLeave',
-          'onDragOver',
-          'onDragStart',
-          'onDrop',
-          'onMouseDown',
-          'onMouseEnter',
-          'onMouseLeave',
-          'onMouseMove',
-          'onMouseOut',
-          'onMouseOver',
-          'onMouseUp',
-        ],
-        ['onTouchCancel', 'onTouchEnd', 'onTouchMove', 'onTouchStart'],
-        ['onKeyDown', 'onKeyPress', 'onKeyUp'],
-        ['onFocus', 'onBlur'],
-        ['onChange', 'onInput', 'onInvalid', 'onSubmit'],
-        ['onScroll'],
-        ['onLoad', 'onError'],
-      )
-      function r(e) {
-        var n = document.createDocumentFragment()
-        return (
-          e.forEach(function e(t) {
-            if (
-              t instanceof HTMLElement ||
-              t instanceof SVGElement ||
-              t instanceof Comment ||
-              t instanceof DocumentFragment
-            )
-              n.appendChild(t)
-            else if ('string' == typeof t || 'number' == typeof t) {
-              var o = document.createTextNode(t)
-              n.appendChild(o)
-            } else t instanceof Array && t.forEach(e)
-          }),
-          n
-        )
-      }
-      function u(e) {
-        return (u =
-          'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
-            ? function(e) {
-                return typeof e
-              }
-            : function(e) {
-                return e &&
-                  'function' == typeof Symbol &&
-                  e.constructor === Symbol &&
-                  e !== Symbol.prototype
-                  ? 'symbol'
-                  : typeof e
-              })(e)
-      }
-      function c(e, n, t) {
-        var u = (function(e) {
-            var n = new RegExp('^'.concat(e, '$'), 'i')
-            return ['path', 'svg', 'use', 'g'].some(function(e) {
-              return n.test(e)
-            })
-          })(e)
-            ? document.createElementNS('http://www.w3.org/2000/svg', e)
-            : document.createElement(e),
-          c = r(t)
-        return (
-          u.appendChild(c),
-          Object.keys(n || {}).forEach(function(e) {
-            if ('style' === e) Object.assign(u.style, n[e])
-            else if ('ref' === e && 'function' == typeof n.ref) n.ref(u, n)
-            else if ('className' === e) u.setAttribute('class', n[e])
-            else if ('htmlFor' === e) u.setAttribute('for', n[e])
-            else if ('xlinkHref' === e)
-              u.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', n[e])
-            else if ('dangerouslySetInnerHTML' === e) u.innerHTML = n[e].__html
-            else if (o.includes(e)) {
-              var t = e.replace(/^on/, '').toLowerCase()
-              u.addEventListener(t, n[e])
-            } else u.setAttribute(e, n[e])
-          }),
-          u
-        )
-      }
-      var i = function(e, n) {
-        for (var t = arguments.length, o = new Array(t > 2 ? t - 2 : 0), i = 2; i < t; i++)
-          o[i - 2] = arguments[i]
-        return 'function' == typeof e
-          ? (function(e, n, t) {
-              var o = Object.assign({}, e.defaultProps || {}, n, { children: t }),
-                u = e.prototype.render ? new e(o).render : e,
-                c = u(o)
-              switch (c) {
-                case 'FRAGMENT':
-                  return r(t)
-                case 'PORTAL':
-                  return u.target.appendChild(r(t)), document.createComment('Portal Used')
-                default:
-                  return c
-              }
-            })(e, n, o)
-          : 'string' == typeof e
-          ? c(e, n, o)
-          : console.error(
-              'jsx-render does not handle '.concat(
-                'undefined' == typeof tag ? 'undefined' : u(tag),
-              ),
-            )
-      }
-      t.d(n, 'jsx', function() {
-        return a
-      })
-      var a = {
-        dom: i,
-        Fragment: function() {
-          return 'FRAGMENT'
-        },
-        portalCreator: function(e) {
-          function n() {
-            return 'PORTAL'
+      ? define([], t)
+      : 'object' == typeof exports
+        ? (exports.jsx = t())
+        : (e.jsx = t())
+})(self, () =>
+  (() => {
+    'use strict'
+    const e = {
+      d: (t, n) => {
+        if (Array.isArray(n))
+          for (var o = 0; o < n.length;) {
+            var r = n[o++],
+              c = n[o++]
+            e.o(t, r)
+              ? 0 === c && o++
+              : 0 === c
+                ? Object.defineProperty(t, r, { enumerable: !0, value: n[o++] })
+                : Object.defineProperty(t, r, { enumerable: !0, get: c })
           }
-          return (
-            (n.target = document.body), e && e.nodeType === Node.ELEMENT_NODE && (n.target = e), n
+        else
+          for (var r in n)
+            e.o(n, r) && !e.o(t, r) && Object.defineProperty(t, r, { enumerable: !0, get: n[r] })
+      },
+      o: (e, t) => Object.prototype.hasOwnProperty.call(e, t),
+    }
+    let t = {}
+    e.d(t, { jsx: () => s })
+    const n = [
+      'onClick',
+      'onContextMenu',
+      'onDoubleClick',
+      'onDrag',
+      'onDragEnd',
+      'onDragEnter',
+      'onDragExit',
+      'onDragLeave',
+      'onDragOver',
+      'onDragStart',
+      'onDrop',
+      'onMouseDown',
+      'onMouseEnter',
+      'onMouseLeave',
+      'onMouseMove',
+      'onMouseOut',
+      'onMouseOver',
+      'onMouseUp',
+      'onTouchCancel',
+      'onTouchEnd',
+      'onTouchMove',
+      'onTouchStart',
+      'onKeyDown',
+      'onKeyPress',
+      'onKeyUp',
+      'onFocus',
+      'onBlur',
+      'onChange',
+      'onInput',
+      'onInvalid',
+      'onSubmit',
+      'onScroll',
+      'onLoad',
+      'onError',
+    ]
+    function o(e) {
+      const t = document.createDocumentFragment()
+      return (
+        e.forEach(function e(n) {
+          if (
+            n instanceof HTMLElement ||
+            n instanceof SVGElement ||
+            n instanceof Comment ||
+            n instanceof DocumentFragment
           )
-        },
+            t.appendChild(n)
+          else if ('string' == typeof n || 'number' == typeof n) {
+            const e = document.createTextNode(n)
+            t.appendChild(e)
+          } else n instanceof Array && n.forEach(e)
+        }),
+        t
+      )
+    }
+    function r(e, t) {
+      var n = Object.keys(e)
+      if (Object.getOwnPropertySymbols) {
+        var o = Object.getOwnPropertySymbols(e)
+        ;(t &&
+          (o = o.filter(function (t) {
+            return Object.getOwnPropertyDescriptor(e, t).enumerable
+          })),
+          n.push.apply(n, o))
       }
-    },
-  ]).jsx
-})
+      return n
+    }
+    function c(e) {
+      for (var t = 1; t < arguments.length; t++) {
+        var n = null != arguments[t] ? arguments[t] : {}
+        t % 2
+          ? r(Object(n), !0).forEach(function (t) {
+              i(e, t, n[t])
+            })
+          : Object.getOwnPropertyDescriptors
+            ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(n))
+            : r(Object(n)).forEach(function (t) {
+                Object.defineProperty(e, t, Object.getOwnPropertyDescriptor(n, t))
+              })
+      }
+      return e
+    }
+    function i(e, t, n) {
+      return (
+        (t = (function (e) {
+          var t = (function (e) {
+            if ('object' != typeof e || !e) return e
+            var t = e[Symbol.toPrimitive]
+            if (void 0 !== t) {
+              var n = t.call(e, 'string')
+              if ('object' != typeof n) return n
+              throw new TypeError('@@toPrimitive must return a primitive value.')
+            }
+            return String(e)
+          })(e)
+          return 'symbol' == typeof t ? t : t + ''
+        })(t)) in e
+          ? Object.defineProperty(e, t, {
+              value: n,
+              enumerable: !0,
+              configurable: !0,
+              writable: !0,
+            })
+          : (e[t] = n),
+        e
+      )
+    }
+    const s = {
+      dom: function (e, t) {
+        for (var r = arguments.length, i = new Array(r > 2 ? r - 2 : 0), s = 2; s < r; s++)
+          i[s - 2] = arguments[s]
+        return 'function' == typeof e
+          ? (function (e, t, n) {
+              const r = c(c(c({}, e.defaultProps), t), {}, { children: n }),
+                i = e.prototype && e.prototype.render ? new e(r).render : e,
+                s = i(r)
+              switch (s) {
+                case 'FRAGMENT':
+                  return o(n)
+                case 'PORTAL':
+                  return (i.target.appendChild(o(n)), document.createComment('Portal Used'))
+                default:
+                  return s
+              }
+            })(e, t, i)
+          : 'string' == typeof e
+            ? (function (e, t, r) {
+                const c = (function (e) {
+                    const t = new RegExp('^'.concat(e, '$'), 'i')
+                    return ['path', 'svg', 'use', 'g'].some(e => t.test(e))
+                  })(e)
+                    ? document.createElementNS('http://www.w3.org/2000/svg', e)
+                    : document.createElement(e),
+                  i = o(r)
+                return (
+                  c.appendChild(i),
+                  Object.keys(t || {}).forEach(e => {
+                    if ('style' === e) Object.assign(c.style, t[e])
+                    else if ('ref' === e && 'function' == typeof t.ref) t.ref(c, t)
+                    else if ('className' === e) c.setAttribute('class', t[e])
+                    else if ('htmlFor' === e) c.setAttribute('for', t[e])
+                    else if ('xlinkHref' === e)
+                      c.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', t[e])
+                    else if ('dangerouslySetInnerHTML' === e) c.innerHTML = t[e].__html
+                    else if (n.includes(e)) {
+                      const n = e.replace(/^on/, '').toLowerCase()
+                      c.addEventListener(n, t[e])
+                    } else c.setAttribute(e, t[e])
+                  }),
+                  c
+                )
+              })(e, t, i)
+            : console.error('jsx-render does not handle '.concat(typeof tag))
+      },
+      Fragment: () => 'FRAGMENT',
+      portalCreator: e => {
+        function t() {
+          return 'PORTAL'
+        }
+        return (
+          (t.target = document.body),
+          e && e.nodeType === Node.ELEMENT_NODE && (t.target = e),
+          t
+        )
+      },
+    }
+    return ((t = t.jsx), t)
+  })(),
+)
+//# sourceMappingURL=jsx.js.map
