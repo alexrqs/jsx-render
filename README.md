@@ -1,16 +1,17 @@
 ## JSX-render
 
-[![travis](https://travis-ci.org/alecsgone/jsx-render.svg?branch=master)](https://travis-ci.org/alecsgone/jsx-render)
+[![test](https://github.com/alexrqs/jsx-render/actions/workflows/test.yml/badge.svg)](https://github.com/alexrqs/jsx-render/actions/workflows/test.yml)
 
-Small file to render jsx as a stateless component from react but without the heavy kb use of it.
+A tiny library to render JSX as real DOM nodes — the familiar stateless-component style from React, without the weight of React itself.
 
 ## Contents
 
 - [Quick Start](#quick-start)
 - [How To Install](#how-to-install)
 - [Features](#features)
-- [How To test](recipes/testing.md)
+- [How To Test](recipes/testing.md)
 - [Recipes](#recipes)
+- [Changelog](CHANGELOG.md)
 
 ### Quick Start
 
@@ -19,7 +20,7 @@ Small file to render jsx as a stateless component from react but without the hea
 ```html
 <!-- index.html -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
-<script type="text/javascript" src="https://alecsgone.github.io/jsx-render/jsx.js"></script>
+<script type="text/javascript" src="https://alexrqs.github.io/jsx-render/jsx.js"></script>
 <script>
   Babel.registerPreset('jsx-render', {
     presets: [[Babel.availablePresets['es2015']]],
@@ -45,7 +46,7 @@ Small file to render jsx as a stateless component from react but without the hea
 
 ### How To Install
 
-The required packages are `@babel/plugin-syntax-jsx`, `@babel/plugin-transform-react-jsx` and of course `jsx-render`, additionally you will need @babel/core, webpack or any other way to transpile the code that you prefer.
+The required packages are `@babel/plugin-syntax-jsx`, `@babel/plugin-transform-react-jsx` and of course `jsx-render`, additionally you will need `@babel/core`, webpack or any other way to transpile the code that you prefer.
 
 ```sh
 $ npm install jsx-render @babel/plugin-syntax-jsx @babel/plugin-transform-react-jsx
@@ -58,7 +59,7 @@ Make sure you have the pragma fn defined and its name is "dom"
 ```json
 // .babelrc
 {
-  "presets": ["babel-preset-primavera", ["@babel/preset-react", { "pragma": "dom" }]]
+  "presets": [["@babel/preset-react", { "pragma": "dom" }]]
 }
 ```
 
@@ -90,7 +91,7 @@ const Modal = props => (
 
 ### Features
 
-- **new** Class suport with default target: the `render()` method
+- **new** Class support with default target: the `render()` method
 - Render Basic Single Components `<div />`
 - Conditional Component `{condition ? <foo/> : <bar/>}`
 - Component with Data Attributes `<div data-some="attr">`
@@ -111,14 +112,14 @@ const Modal = props => (
 ### Fragments
 
 ```jsx
-import dom, { Fragments } from 'jsx-render'
+import dom, { Fragment } from 'jsx-render'
 
 // Return siblings without direct parent component
 const Foo = () => (
-  <Fragments>
+  <Fragment>
     <li />
     <li />
-  </Fragments>
+  </Fragment>
 )
 const ul = document.createElement('ul')
 ul.appendChild(<Foo />)
@@ -129,9 +130,9 @@ ul.appendChild(<Foo />)
 ```jsx
 import dom, { portalCreator } from 'jsx-render'
 
-// can render the component on a diferent node than the parentNode
+// can render the component on a different node than the parentNode
 // useful for modals, and if the argument is not a node
-// it will render as body direct son by default
+// it will render as a direct child of body by default
 function Component(node) {
   const Portal = portalCreator(node)
 
