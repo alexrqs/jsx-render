@@ -32,6 +32,8 @@ Published entry point is `lib/dom.js` (Babel output of `src/dom.js`).
 
 ## Conventions
 
+- Every version bump must come with a matching entry in `CHANGELOG.md` (Keep a Changelog format, newest first) and a `vX.Y.Z` git tag + GitHub release.
+
 - Code style: Prettier (no semicolons, single quotes, trailing commas, 100 print width) enforced by husky pre-commit (`pretty-quick`); tests run on pre-push.
 - Tests are JSX-heavy `.js` files in `test/`, transpiled through `@babel/register` using the root `.babelrc` (same `pragma: 'dom'`); the DOM comes from `browser-env` (`test/helpers/setup-browser-env.js`).
 - `recipes/` contains usage docs (redux, class components, events, testing); `examples/` is a runnable demo app.
