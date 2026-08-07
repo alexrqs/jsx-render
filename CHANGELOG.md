@@ -5,6 +5,30 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0-beta.0] - 2026-08-07
+
+### Changed
+
+- **Breaking:** JSX no longer creates DOM eagerly. The `dom` pragma now
+  returns a lightweight vnode `{ element, attrs, children }`; render it with
+  `renderClient(vnode)` (real DOM) or `renderServer(vnode)` (HTML string).
+  This revives the architecture from the 2018 `v2` branch (PR #8) on top of
+  the current feature set: event listeners (including the `dblclick` fix),
+  boolean attribute semantics, the full SVG tag whitelist, `htmlFor`,
+  `xlinkHref`, `dangerouslySetInnerHTML`, class components, `defaultProps`,
+  fragments and portals all behave as in 1.4.0.
+
+### Added
+
+- `renderServer(vnode)`: server-side rendering to an HTML string. All text
+  and attribute values are HTML-escaped (unlike the 2018 prototype);
+  `dangerouslySetInnerHTML` is the only raw-HTML path. Void elements and
+  attribute serialization match DOM `outerHTML`, so server output is
+  hydratable byte-for-byte (covered by a client/server parity test).
+- `portalCreator` no longer touches `document` at creation time, so portal
+  components are importable on the server (they render as the same
+  `<!--Portal Used-->` placeholder the client leaves).
+
 ## [1.4.0] - 2026-08-07
 
 ### Fixed

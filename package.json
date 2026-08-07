@@ -1,9 +1,9 @@
 {
   "name": "jsx-render",
-  "version": "1.4.0",
-  "description": "A tiny library to render JSX as real DOM nodes, without React",
+  "version": "2.0.0-beta.0",
+  "description": "A tiny library to render JSX as real DOM nodes or HTML strings (SSR), without React",
   "bundle": "docs/jsx.js",
-  "main": "lib/dom.js",
+  "main": "lib/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/alexrqs/jsx-render.git"

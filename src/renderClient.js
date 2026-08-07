@@ -6,7 +6,7 @@ import { isSVG, createFragmentFrom } from './utils'
  *
  * @param  {String} tagName name as string, e.g. 'div', 'span', 'svg'
  * @param  {Object} attrs html attributes e.g. data-, width, src
- * @param  {Array} children html nodes from inside de elements
+ * @param  {Array} children vnodes, strings, numbers or DOM nodes
  * @return {HTMLElement|SVGElement} html node with attrs
  */
 function createElements(tagName, attrs, children) {
@@ -15,7 +15,8 @@ function createElements(tagName, attrs, children) {
     : document.createElement(tagName)
 
   // one or multiple will be evaluated to append as string or HTMLElement
-  const fragment = createFragmentFrom(children)
+  // eslint-disable-next-line no-use-before-define
+  const fragment = createFragmentFrom(children, renderClient)
   element.appendChild(fragment)
 
   Object.keys(attrs || {}).forEach(prop => {
@@ -53,37 +54,55 @@ function createElements(tagName, attrs, children) {
 /**
  * The JSXTag will be unwrapped returning the html
  *
- * @param  {Function} JSXTag name as string, e.g. 'div', 'span', 'svg'
+ * @param  {Function} JSXTag component function or class
  * @param  {Object} elementProps custom jsx attributes e.g. fn, strings
- * @param  {Array} children html nodes from inside de elements
+ * @param  {Array} children vnodes from inside the element
  *
- * @return {Function} returns de 'dom' (fn) executed, leaving the HTMLElement
- *
- * JSXTag:  function Comp(props) {
- *   return dom("span", null, props.num);
- * }
+ * @return {Node} the rendered DOM for the component result
  */
 function composeToFunction(JSXTag, elementProps, children) {
   const props = { ...JSXTag.defaultProps, ...elementProps, children }
   const bridge = JSXTag.prototype && JSXTag.prototype.render ? new JSXTag(props).render : JSXTag
   const result = bridge(props)
 
-  switch (result) {
+  switch (result && result.element) {
     case 'FRAGMENT':
-      return createFragmentFrom(children)
+      // eslint-disable-next-line no-use-before-define
+      return createFragmentFrom(result.children, renderClient)
 
     // Portals are useful to render modals
     // allow render on a different element than the parent of the chain
     // and leave a comment instead
-    case 'PORTAL':
-      bridge.target.appendChild(createFragmentFrom(children))
+    case 'PORTAL': {
+      const target = JSXTag.target || document.body
+      // eslint-disable-next-line no-use-before-define
+      target.appendChild(createFragmentFrom(result.children, renderClient))
       return document.createComment('Portal Used')
+    }
     default:
-      return result
+      // eslint-disable-next-line no-use-before-define
+      return renderClient(result)
   }
 }
 
-function dom(element, attrs, ...children) {
+/**
+ * Render a vnode tree (from the `dom` pragma in element.js) into real DOM.
+ *
+ * @param {Object|String|Number|Node} vnode
+ * @return {Node}
+ */
+function renderClient(vnode) {
+  // pre-made DOM nodes pass through untouched
+  if (vnode instanceof Node) {
+    return vnode
+  }
+
+  if (typeof vnode === 'string' || typeof vnode === 'number') {
+    return document.createTextNode(vnode)
+  }
+
+  const { element, attrs, children } = vnode || {}
+
   // Custom Components will be functions
   if (typeof element === 'function') {
     // e.g. const CustomTag = ({ w }) => <span width={w} />
@@ -102,18 +121,4 @@ function dom(element, attrs, ...children) {
   return console.error(`jsx-render does not handle ${typeof element}`)
 }
 
-export default dom
-export const Fragment = () => 'FRAGMENT'
-export const portalCreator = node => {
-  function Portal() {
-    return 'PORTAL'
-  }
-
-  Portal.target = document.body
-
-  if (node && node.nodeType === Node.ELEMENT_NODE) {
-    Portal.target = node
-  }
-
-  return Portal
-}
+export default renderClient

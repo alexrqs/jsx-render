@@ -1,5 +1,5 @@
 import test from 'ava'
-import dom from '../src/dom'
+import dom, { renderClient } from '../src/index'
 import JSXComponent from '../src/JSXComponent.js'
 
 // Metasyntactic variables used commonly across all
@@ -20,7 +20,7 @@ test('Basic extends JSXComponent <div />', t => {
   }
 
   t.is(
-    dom(Component, externalProps).outerHTML,
+    renderClient(dom(Component, externalProps)).outerHTML,
     '<div class="foo" qux="baz" quux="baz"></div>',
     'Single Component Extends Correctly',
   )
@@ -43,7 +43,7 @@ test('JSXComponent events', t => {
     }
   }
 
-  document.body.appendChild(dom(Component))
+  document.body.appendChild(renderClient(dom(Component)))
 
   const HTMLEvents = document.createEvent('HTMLEvents')
   HTMLEvents.initEvent('click', false, true)
