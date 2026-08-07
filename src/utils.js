@@ -1,8 +1,69 @@
-export function isSVG(element) {
-  const patt = new RegExp(`^${element}$`, 'i')
-  const SVGTags = ['path', 'svg', 'use', 'g']
+// tags that exist in both HTML and SVG (a, title, style, script...)
+// are intentionally left out and resolve to HTML elements
+const SVG_TAGS = [
+  'animate',
+  'animatemotion',
+  'animatetransform',
+  'circle',
+  'clippath',
+  'defs',
+  'desc',
+  'ellipse',
+  'feblend',
+  'fecolormatrix',
+  'fecomponenttransfer',
+  'fecomposite',
+  'feconvolvematrix',
+  'fediffuselighting',
+  'fedisplacementmap',
+  'fedistantlight',
+  'fedropshadow',
+  'feflood',
+  'fefunca',
+  'fefuncb',
+  'fefuncg',
+  'fefuncr',
+  'fegaussianblur',
+  'feimage',
+  'femerge',
+  'femergenode',
+  'femorphology',
+  'feoffset',
+  'fepointlight',
+  'fespecularlighting',
+  'fespotlight',
+  'fetile',
+  'feturbulence',
+  'filter',
+  'foreignobject',
+  'g',
+  'image',
+  'line',
+  'lineargradient',
+  'marker',
+  'mask',
+  'metadata',
+  'mpath',
+  'path',
+  'pattern',
+  'polygon',
+  'polyline',
+  'radialgradient',
+  'rect',
+  'set',
+  'stop',
+  'svg',
+  'switch',
+  'symbol',
+  'text',
+  'textpath',
+  'tspan',
+  'use',
+  'view',
+]
 
-  return SVGTags.some(tag => patt.test(tag))
+export function isSVG(element) {
+  return SVG_TAGS.includes(String(element).toLowerCase())
 }
 
 export function createFragmentFrom(children) {
@@ -10,12 +71,8 @@ export function createFragmentFrom(children) {
   const fragment = document.createDocumentFragment()
 
   function processDOMNodes(child) {
-    if (
-      child instanceof HTMLElement ||
-      child instanceof SVGElement ||
-      child instanceof Comment ||
-      child instanceof DocumentFragment
-    ) {
+    if (child instanceof Node) {
+      // covers HTMLElement, SVGElement, Text, Comment and DocumentFragment
       fragment.appendChild(child)
     } else if (typeof child === 'string' || typeof child === 'number') {
       const textnode = document.createTextNode(child)

@@ -14,12 +14,12 @@
         if (Array.isArray(n))
           for (var o = 0; o < n.length;) {
             var r = n[o++],
-              c = n[o++]
+              i = n[o++]
             e.o(t, r)
-              ? 0 === c && o++
-              : 0 === c
+              ? 0 === i && o++
+              : 0 === i
                 ? Object.defineProperty(t, r, { enumerable: !0, value: n[o++] })
-                : Object.defineProperty(t, r, { enumerable: !0, get: c })
+                : Object.defineProperty(t, r, { enumerable: !0, get: i })
           }
         else
           for (var r in n)
@@ -28,54 +28,109 @@
       o: (e, t) => Object.prototype.hasOwnProperty.call(e, t),
     }
     let t = {}
-    e.d(t, { jsx: () => s })
+    e.d(t, { jsx: () => f })
     const n = [
-      'onClick',
-      'onContextMenu',
-      'onDoubleClick',
-      'onDrag',
-      'onDragEnd',
-      'onDragEnter',
-      'onDragExit',
-      'onDragLeave',
-      'onDragOver',
-      'onDragStart',
-      'onDrop',
-      'onMouseDown',
-      'onMouseEnter',
-      'onMouseLeave',
-      'onMouseMove',
-      'onMouseOut',
-      'onMouseOver',
-      'onMouseUp',
-      'onTouchCancel',
-      'onTouchEnd',
-      'onTouchMove',
-      'onTouchStart',
-      'onKeyDown',
-      'onKeyPress',
-      'onKeyUp',
-      'onFocus',
-      'onBlur',
-      'onChange',
-      'onInput',
-      'onInvalid',
-      'onSubmit',
-      'onScroll',
-      'onLoad',
-      'onError',
-    ]
-    function o(e) {
+        'onClick',
+        'onContextMenu',
+        'onDoubleClick',
+        'onDrag',
+        'onDragEnd',
+        'onDragEnter',
+        'onDragExit',
+        'onDragLeave',
+        'onDragOver',
+        'onDragStart',
+        'onDrop',
+        'onMouseDown',
+        'onMouseEnter',
+        'onMouseLeave',
+        'onMouseMove',
+        'onMouseOut',
+        'onMouseOver',
+        'onMouseUp',
+        'onTouchCancel',
+        'onTouchEnd',
+        'onTouchMove',
+        'onTouchStart',
+        'onKeyDown',
+        'onKeyPress',
+        'onKeyUp',
+        'onFocus',
+        'onBlur',
+        'onChange',
+        'onInput',
+        'onInvalid',
+        'onSubmit',
+        'onScroll',
+        'onLoad',
+        'onError',
+      ],
+      o = [
+        'animate',
+        'animatemotion',
+        'animatetransform',
+        'circle',
+        'clippath',
+        'defs',
+        'desc',
+        'ellipse',
+        'feblend',
+        'fecolormatrix',
+        'fecomponenttransfer',
+        'fecomposite',
+        'feconvolvematrix',
+        'fediffuselighting',
+        'fedisplacementmap',
+        'fedistantlight',
+        'fedropshadow',
+        'feflood',
+        'fefunca',
+        'fefuncb',
+        'fefuncg',
+        'fefuncr',
+        'fegaussianblur',
+        'feimage',
+        'femerge',
+        'femergenode',
+        'femorphology',
+        'feoffset',
+        'fepointlight',
+        'fespecularlighting',
+        'fespotlight',
+        'fetile',
+        'feturbulence',
+        'filter',
+        'foreignobject',
+        'g',
+        'image',
+        'line',
+        'lineargradient',
+        'marker',
+        'mask',
+        'metadata',
+        'mpath',
+        'path',
+        'pattern',
+        'polygon',
+        'polyline',
+        'radialgradient',
+        'rect',
+        'set',
+        'stop',
+        'svg',
+        'switch',
+        'symbol',
+        'text',
+        'textpath',
+        'tspan',
+        'use',
+        'view',
+      ]
+    function r(e) {
       const t = document.createDocumentFragment()
       return (
         e.forEach(function e(n) {
-          if (
-            n instanceof HTMLElement ||
-            n instanceof SVGElement ||
-            n instanceof Comment ||
-            n instanceof DocumentFragment
-          )
-            t.appendChild(n)
+          if (n instanceof Node) t.appendChild(n)
           else if ('string' == typeof n || 'number' == typeof n) {
             const e = document.createTextNode(n)
             t.appendChild(e)
@@ -84,7 +139,7 @@
         t
       )
     }
-    function r(e, t) {
+    function i(e, t) {
       var n = Object.keys(e)
       if (Object.getOwnPropertySymbols) {
         var o = Object.getOwnPropertySymbols(e)
@@ -96,22 +151,22 @@
       }
       return n
     }
-    function c(e) {
+    function a(e) {
       for (var t = 1; t < arguments.length; t++) {
         var n = null != arguments[t] ? arguments[t] : {}
         t % 2
-          ? r(Object(n), !0).forEach(function (t) {
-              i(e, t, n[t])
+          ? i(Object(n), !0).forEach(function (t) {
+              c(e, t, n[t])
             })
           : Object.getOwnPropertyDescriptors
             ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(n))
-            : r(Object(n)).forEach(function (t) {
+            : i(Object(n)).forEach(function (t) {
                 Object.defineProperty(e, t, Object.getOwnPropertyDescriptor(n, t))
               })
       }
       return e
     }
-    function i(e, t, n) {
+    function c(e, t, n) {
       return (
         (t = (function (e) {
           var t = (function (e) {
@@ -136,52 +191,56 @@
         e
       )
     }
-    const s = {
+    const f = {
       dom: function (e, t) {
-        for (var r = arguments.length, i = new Array(r > 2 ? r - 2 : 0), s = 2; s < r; s++)
-          i[s - 2] = arguments[s]
+        for (var i = arguments.length, c = new Array(i > 2 ? i - 2 : 0), f = 2; f < i; f++)
+          c[f - 2] = arguments[f]
         return 'function' == typeof e
           ? (function (e, t, n) {
-              const r = c(c(c({}, e.defaultProps), t), {}, { children: n }),
-                i = e.prototype && e.prototype.render ? new e(r).render : e,
-                s = i(r)
-              switch (s) {
+              const o = a(a(a({}, e.defaultProps), t), {}, { children: n }),
+                i = e.prototype && e.prototype.render ? new e(o).render : e,
+                c = i(o)
+              switch (c) {
                 case 'FRAGMENT':
-                  return o(n)
+                  return r(n)
                 case 'PORTAL':
-                  return (i.target.appendChild(o(n)), document.createComment('Portal Used'))
+                  return (i.target.appendChild(r(n)), document.createComment('Portal Used'))
                 default:
-                  return s
+                  return c
               }
-            })(e, t, i)
+            })(e, t, c)
           : 'string' == typeof e
-            ? (function (e, t, r) {
-                const c = (function (e) {
-                    const t = new RegExp('^'.concat(e, '$'), 'i')
-                    return ['path', 'svg', 'use', 'g'].some(e => t.test(e))
+            ? (function (e, t, i) {
+                const a = (function (e) {
+                    return o.includes(String(e).toLowerCase())
                   })(e)
                     ? document.createElementNS('http://www.w3.org/2000/svg', e)
                     : document.createElement(e),
-                  i = o(r)
+                  c = r(i)
                 return (
-                  c.appendChild(i),
+                  a.appendChild(c),
                   Object.keys(t || {}).forEach(e => {
-                    if ('style' === e) Object.assign(c.style, t[e])
-                    else if ('ref' === e && 'function' == typeof t.ref) t.ref(c, t)
-                    else if ('className' === e) c.setAttribute('class', t[e])
-                    else if ('htmlFor' === e) c.setAttribute('for', t[e])
+                    if ('style' === e) Object.assign(a.style, t[e])
+                    else if ('ref' === e && 'function' == typeof t.ref) t.ref(a, t)
+                    else if ('className' === e) a.setAttribute('class', t[e])
+                    else if ('htmlFor' === e) a.setAttribute('for', t[e])
                     else if ('xlinkHref' === e)
-                      c.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', t[e])
-                    else if ('dangerouslySetInnerHTML' === e) c.innerHTML = t[e].__html
+                      a.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', t[e])
+                    else if ('dangerouslySetInnerHTML' === e) a.innerHTML = t[e].__html
                     else if (n.includes(e)) {
-                      const n = e.replace(/^on/, '').toLowerCase()
-                      c.addEventListener(n, t[e])
-                    } else c.setAttribute(e, t[e])
+                      const n =
+                        'onDoubleClick' === e ? 'dblclick' : e.replace(/^on/, '').toLowerCase()
+                      a.addEventListener(n, t[e])
+                    } else
+                      !1 === t[e] ||
+                        null === t[e] ||
+                        void 0 === t[e] ||
+                        a.setAttribute(e, !0 === t[e] ? '' : t[e])
                   }),
-                  c
+                  a
                 )
-              })(e, t, i)
-            : console.error('jsx-render does not handle '.concat(typeof tag))
+              })(e, t, c)
+            : console.error('jsx-render does not handle '.concat(typeof e))
       },
       Fragment: () => 'FRAGMENT',
       portalCreator: e => {

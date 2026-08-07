@@ -10,7 +10,7 @@ class Intercept {
   }
 
   childAt() {
-    return this.$(this.nodes.outerHTML).get(0).text()
+    return this.$(this.nodes.outerHTML).eq(0).text()
   }
 
   find(selector) {

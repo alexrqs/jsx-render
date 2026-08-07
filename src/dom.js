@@ -34,11 +34,16 @@ function createElements(tagName, attrs, children) {
       // eslint-disable-next-line no-underscore-dangle
       element.innerHTML = attrs[prop].__html
     } else if (synteticEvents.includes(prop)) {
-      const event = prop.replace(/^on/, '').toLowerCase()
+      // the DOM event for onDoubleClick is 'dblclick', not 'doubleclick'
+      const event = prop === 'onDoubleClick' ? 'dblclick' : prop.replace(/^on/, '').toLowerCase()
       element.addEventListener(event, attrs[prop])
+    } else if (attrs[prop] === false || attrs[prop] === null || attrs[prop] === undefined) {
+      // boolean-like falsy values must not become attributes:
+      // <button disabled={false} /> with disabled="false" would still disable
     } else {
-      // any other prop will be set as attribute
-      element.setAttribute(prop, attrs[prop])
+      // any other prop will be set as attribute; true renders as an empty
+      // attribute, e.g. <button disabled={true} /> becomes <button disabled>
+      element.setAttribute(prop, attrs[prop] === true ? '' : attrs[prop])
     }
   })
 
@@ -94,7 +99,7 @@ function dom(element, attrs, ...children) {
     return createElements(element, attrs, children)
   }
 
-  return console.error(`jsx-render does not handle ${typeof tag}`)
+  return console.error(`jsx-render does not handle ${typeof element}`)
 }
 
 export default dom

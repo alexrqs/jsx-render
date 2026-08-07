@@ -3,7 +3,7 @@ import dom from './dom'
 function updateElement(parent, next, prev) {
   // later virtualDOM mods
   if (!next.isEqualNode(prev)) {
-    parent.replaceChild(next, parent.firstChild)
+    parent.replaceChild(next, prev)
   }
 }
 
