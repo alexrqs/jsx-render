@@ -2,7 +2,9 @@
 
 [![test](https://github.com/alexrqs/jsx-render/actions/workflows/test.yml/badge.svg)](https://github.com/alexrqs/jsx-render/actions/workflows/test.yml)
 
-A tiny library to render JSX as real DOM nodes — the familiar stateless-component style from React, without the weight of React itself.
+A tiny library to render JSX as real DOM nodes — or as HTML strings on the server — with the familiar stateless-component style from React, without the weight of React itself.
+
+> **v2 (this branch):** JSX now produces a lightweight vnode instead of eager DOM. Render it with `renderClient` in the browser or `renderServer` on the server.
 
 ## Contents
 
@@ -40,7 +42,7 @@ A tiny library to render JSX as real DOM nodes — the familiar stateless-compon
 <script type="text/babel" data-presets="jsx-render">
   const foo = () => <p>Hello world</p>
 
-  document.body.appendChild(foo())
+  document.body.appendChild(jsx.renderClient(foo()))
 </script>
 ```
 
@@ -66,10 +68,11 @@ Make sure you have the pragma fn defined and its name is "dom"
 Now you can create components e.g.
 
 ```jsx
-import dom from 'jsx-render'
+import dom, { renderClient } from 'jsx-render'
 
 const DummyComponent = props => <div>{props.children}</div>
-export default DummyComponent
+
+document.body.appendChild(renderClient(<DummyComponent>hey</DummyComponent>))
 ```
 
 or Fragments
@@ -112,7 +115,7 @@ const Modal = props => (
 ### Fragments
 
 ```jsx
-import dom, { Fragment } from 'jsx-render'
+import dom, { Fragment, renderClient } from 'jsx-render'
 
 // Return siblings without direct parent component
 const Foo = () => (
@@ -122,7 +125,7 @@ const Foo = () => (
   </Fragment>
 )
 const ul = document.createElement('ul')
-ul.appendChild(<Foo />)
+ul.appendChild(renderClient(<Foo />))
 ```
 
 ### Portals
@@ -153,6 +156,25 @@ function render() {
   return <div dangerouslySetInnerHTML={{ __html: '<span>StrangerDanger</span>' }} />
 }
 ```
+
+### Server-side rendering
+
+`renderServer` turns the same components into an HTML string. Everything is
+HTML-escaped except `dangerouslySetInnerHTML`, so user data is safe to render.
+
+```jsx
+import dom, { renderServer } from 'jsx-render'
+
+const App = props => <h1 className="title">{props.greeting}</h1>
+
+// express handler
+app.get('/', (req, res) => {
+  res.send(`<div class="app">${renderServer(<App greeting="hola" />)}</div>`)
+})
+```
+
+The output matches DOM `outerHTML` byte-for-byte, so the client can hydrate by
+replacing or appending with `renderClient` over the same tree.
 
 ### Recipes
 

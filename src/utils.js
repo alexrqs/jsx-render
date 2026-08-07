@@ -66,7 +66,31 @@ export function isSVG(element) {
   return SVG_TAGS.includes(String(element).toLowerCase())
 }
 
-export function createFragmentFrom(children) {
+export function isVNode(child) {
+  return typeof child === 'object' && child !== null && 'element' in child
+}
+
+// { minWidth: '10px', 'font-size': '2em' } -> "min-width: 10px; font-size: 2em;"
+export function objectToStyleString(style) {
+  return Object.keys(style)
+    .map(prop => {
+      const name = prop.replace(/[A-Z]/g, letter => `-${letter.toLowerCase()}`)
+      return `${name}: ${style[prop]};`
+    })
+    .join(' ')
+}
+
+// matches how the DOM serializes text nodes: & < > (quotes stay literal)
+export function escapeText(value) {
+  return String(value).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+}
+
+// matches how the DOM serializes attribute values: & " (angle brackets stay literal)
+export function escapeAttribute(value) {
+  return String(value).replace(/&/g, '&amp;').replace(/"/g, '&quot;')
+}
+
+export function createFragmentFrom(children, renderVNode) {
   // fragments will help later to append multiple children to the initial node
   const fragment = document.createDocumentFragment()
 
@@ -79,6 +103,8 @@ export function createFragmentFrom(children) {
       fragment.appendChild(textnode)
     } else if (child instanceof Array) {
       child.forEach(processDOMNodes)
+    } else if (isVNode(child) && typeof renderVNode === 'function') {
+      fragment.appendChild(renderVNode(child))
     } else if (child === false || child === null) {
       // expression evaluated as false e.g. {false && <Elem />}
       // expression evaluated as false e.g. {null && <Elem />}

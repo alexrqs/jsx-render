@@ -1,20 +1,20 @@
 import test from 'ava'
-import dom from '../src/dom'
+import dom, { renderClient } from '../src/index'
 import JSXComponent from '../src/JSXComponent'
 import Intercept from '../src/intercept'
 
 test('Intercept#html', t => {
-  const wrapper = new Intercept(<div />)
+  const wrapper = new Intercept(renderClient(<div />))
 
   t.is(wrapper.html(), '<div></div>')
 })
 
 test('Intercept#find', t => {
   const wrapper = new Intercept(
-    (
+    renderClient(
       <div>
         <span>Foo</span>
-      </div>
+      </div>,
     ),
   )
 
@@ -23,10 +23,10 @@ test('Intercept#find', t => {
 
 test('Intercept#hasClass', t => {
   const wrapper = new Intercept(
-    (
+    renderClient(
       <div>
         <span className="foo">Foo</span>
-      </div>
+      </div>,
     ),
   )
 
@@ -34,11 +34,11 @@ test('Intercept#hasClass', t => {
   t.is(wrapper.hasClass('bar'), false)
 
   const wrapperSec = new Intercept(
-    (
+    renderClient(
       <div>
         <span className="foo">Foo</span>
         <span className="bar baz" />
-      </div>
+      </div>,
     ),
   )
 
@@ -47,10 +47,10 @@ test('Intercept#hasClass', t => {
 
 test('Intercept#RAW', t => {
   const wrapper = new Intercept(
-    (
+    renderClient(
       <div id="parent">
         <span className="foo">Foo</span>
-      </div>
+      </div>,
     ),
   )
   const $ = wrapper.RAW
@@ -58,10 +58,5 @@ test('Intercept#RAW', t => {
   // definitelly cheerio test are done somewhereelse this is just to show an example with jsx-render
   t.true($('.foo').is('span'))
   t.false($('.foo').is('div'))
-  t.is(
-    $('.foo')
-      .parent()
-      .attr('id'),
-    'parent',
-  )
+  t.is($('.foo').parent().attr('id'), 'parent')
 })

@@ -1,12 +1,12 @@
 import test from 'ava'
-import dom, { Fragment, portalCreator } from '../src/dom'
+import dom, { Fragment, portalCreator, renderClient } from '../src/index'
 
 test('Basic Single Component <div />', t => {
   function render() {
     return <div />
   }
 
-  t.is(render().outerHTML, '<div></div>', 'Single Element Renders Correctly')
+  t.is(renderClient(render()).outerHTML, '<div></div>', 'Single Element Renders Correctly')
 })
 
 test('Conditional Component', t => {
@@ -17,9 +17,9 @@ test('Conditional Component', t => {
     return <div>{false && 2}</div>
   }
 
-  t.is(render().outerHTML, '<div>2</div>', 'Conditional Renders Correctly')
+  t.is(renderClient(render()).outerHTML, '<div>2</div>', 'Conditional Renders Correctly')
 
-  t.is(notRender().outerHTML, '<div></div>', 'Conditional "NotRenders" Correctly')
+  t.is(renderClient(notRender()).outerHTML, '<div></div>', 'Conditional "NotRenders" Correctly')
 })
 
 test('Component with Data Attributes', t => {
@@ -28,7 +28,7 @@ test('Component with Data Attributes', t => {
   }
 
   t.is(
-    renderDataAttrs().outerHTML,
+    renderClient(renderDataAttrs()).outerHTML,
     '<div data-merci="merci beaucoup"></div>',
     'Data Attributes Renders Correctly',
   )
@@ -40,7 +40,7 @@ test('Component with Attributes', t => {
   }
 
   t.is(
-    renderAttrs().outerHTML,
+    renderClient(renderAttrs()).outerHTML,
     '<img src="img_.jpg" width="500" height="600">',
     'Attrs Renders Correctly',
   )
@@ -51,7 +51,11 @@ test('Component with htmlFor', t => {
     return <label htmlFor="merci" />
   }
 
-  t.is(renderDataAttrs().outerHTML, '<label for="merci"></label>', 'htmlFor Renders Correctly')
+  t.is(
+    renderClient(renderDataAttrs()).outerHTML,
+    '<label for="merci"></label>',
+    'htmlFor Renders Correctly',
+  )
 })
 
 test('Nested Component ul>li>a', t => {
@@ -68,7 +72,7 @@ test('Nested Component ul>li>a', t => {
   }
 
   t.is(
-    render().outerHTML,
+    renderClient(render()).outerHTML,
     '<ul> <li> <a href="http://URL.com">URL</a> </li> </ul>',
     'Nested Components Correctly',
   )
@@ -86,7 +90,7 @@ test('Siblings Components ul>li*3', t => {
   }
 
   t.is(
-    render().outerHTML,
+    renderClient(render()).outerHTML,
     '<ul><li>one</li><li>two</li><li>nine</li></ul>',
     'Siblings Components Renders Correctly',
   )
@@ -98,7 +102,7 @@ test('Components with classname p.chan', t => {
   }
 
   t.is(
-    render().outerHTML,
+    renderClient(render()).outerHTML,
     '<p class="chan">Lorem</p>',
     'Components with classname Renders Correctly',
   )
@@ -117,7 +121,7 @@ test('Map components & numbers', t => {
   }
 
   t.is(
-    render().outerHTML,
+    renderClient(render()).outerHTML,
     '<div><p>1</p><p>2</p><p>3</p></div>',
     'Map components Renders Correctly',
   )
@@ -134,7 +138,7 @@ test('Fragments', t => {
   }
 
   const base = document.createElement('ul')
-  base.appendChild(render())
+  base.appendChild(renderClient(render()))
 
   t.is(base.innerHTML, '<li>uno</li><li>uno</li>', 'Fragments Renders Correctly')
 
@@ -150,7 +154,7 @@ test('Fragments', t => {
   }
 
   const base2 = document.createElement('div')
-  base2.appendChild(renderInContext())
+  base2.appendChild(renderClient(renderInContext()))
 
   t.is(
     base2.innerHTML,
@@ -174,11 +178,15 @@ test('Portals', t => {
   }
 
   const base = document.createElement('h2')
-  render(base)
+  renderClient(render(base))
 
   t.is(base.innerHTML, '<li>uno</li><li>uno</li>', 'Portals Renders Outside Correctly')
 
-  t.is(render().outerHTML, '<ul><!--Portal Used--></ul>', 'Portals renders inside another element')
+  t.is(
+    renderClient(render()).outerHTML,
+    '<ul><!--Portal Used--></ul>',
+    'Portals renders inside another element',
+  )
 
   t.is(
     document.body.outerHTML,
@@ -210,7 +218,7 @@ test('SVG', t => {
   }
 
   t.is(
-    render().outerHTML,
+    renderClient(render()).outerHTML,
     '<svg id="Layer_1" data-name="Layer 1" style="min-width: 110px; height: 40px; width: 140px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 141 41"><title>Logo Title Tag</title><g><path d="M241.74,421.43v-41h28.61v41H241.74Zm24.47-4.13V384.56H245.86V417.3h20.35Z" transform="translate(-241.74 -380.43)" style="fill: #ffcd05;"></path></g></svg>',
     'SVG Renders Correctly',
   )
@@ -228,7 +236,7 @@ test('Component Props', t => {
     )
   }
 
-  t.is(render().outerHTML, '<div><span>2</span></div>', 'Props Renders Correctly')
+  t.is(renderClient(render()).outerHTML, '<div><span>2</span></div>', 'Props Renders Correctly')
 })
 
 test('Component has defaultProps', t => {
@@ -248,7 +256,7 @@ test('Component has defaultProps', t => {
     )
   }
 
-  t.is(render().outerHTML, '<div><span>2</span></div>', 'Props Renders Correctly')
+  t.is(renderClient(render()).outerHTML, '<div><span>2</span></div>', 'Props Renders Correctly')
 })
 
 test('Component Children', t => {
@@ -266,7 +274,7 @@ test('Component Children', t => {
   }
 
   t.is(
-    render().outerHTML,
+    renderClient(render()).outerHTML,
     '<div><span><a href="http://url.io">io</a></span></div>',
     'Props Renders Correctly',
   )
@@ -282,7 +290,7 @@ test('Component render xlinkHref for SVG sprites', t => {
   }
 
   t.is(
-    renderDataAttrs().outerHTML,
+    renderClient(renderDataAttrs()).outerHTML,
     '<svg><use xlink:href="#star-open"></use></svg>',
     'SVG sprites Renders Correctly',
   )
@@ -294,7 +302,7 @@ test('Component render dangerouslySetInnerHTML', t => {
   }
 
   t.is(
-    render().outerHTML,
+    renderClient(render()).outerHTML,
     '<div><span>StrangerDanger</span></div>',
     'dangerouslySetInnerHTML Renders Correctly',
   )
@@ -317,7 +325,7 @@ test('Class Component render', t => {
   }
 
   t.is(
-    render().outerHTML,
+    renderClient(render()).outerHTML,
     '<img src="http://lorempixum.com/" width="10px" height="20px">',
     'dangerouslySetInnerHTML Renders Correctly',
   )
@@ -350,7 +358,7 @@ test('Class Complex Component render', t => {
   }
 
   t.is(
-    render().outerHTML,
+    renderClient(render()).outerHTML,
     '<span><img src="http://lorempixum.com/" width="10px" height="20px"></span>',
     'dangerouslySetInnerHTML Renders Correctly',
   )
@@ -362,7 +370,7 @@ test('Event listener', t => {
     return <div onClick={() => (clicked = true)} />
   }
 
-  const rendered = render()
+  const rendered = renderClient(render())
   rendered.click()
 
   t.true(clicked, 'Clicked should be set to true')
